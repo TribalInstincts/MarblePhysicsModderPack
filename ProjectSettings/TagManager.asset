@@ -1,0 +1,77 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - DoNotDelete
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - Bloom
+  - Water
+  - UI
+  - Environment
+  - PlayerTrigger
+  - Player
+  - Zone
+  - Environment2
+  - Projectile
+  - ArenaItem
+  - PlayerNoHit
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - Custom5
+  - Custom4
+  - Custom3
+  - Custom2
+  - Custom1
+  - Custom0
+  m_SortingLayers:
+  - name: Background
+    uniqueID: 2117023937
+    locked: 0
+  - name: BackgroundBloom
+    uniqueID: 3461100207
+    locked: 0
+  - name: BehindEnvironment
+    uniqueID: 242033641
+    locked: 0
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: InFrontEnvironment
+    uniqueID: 2276219293
+    locked: 0
+  - name: PlayerBackground
+    uniqueID: 4137990625
+    locked: 0
+  - name: Bloom
+    uniqueID: 1221131309
+    locked: 0
+  - name: BloomBlocking
+    uniqueID: 2912684023
+    locked: 0
+  - name: Fade
+    uniqueID: 852498715
+    locked: 0
+  - name: Players
+    uniqueID: 2463077701
+    locked: 0
+  - name: InFrontBloom
+    uniqueID: 2145467653
+    locked: 0
+  - name: Names
+    uniqueID: 4109830055
+    locked: 0
