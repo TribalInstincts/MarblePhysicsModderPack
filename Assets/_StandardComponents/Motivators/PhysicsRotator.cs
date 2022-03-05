@@ -8,14 +8,14 @@ namespace MarblePhysics
         private FloatGenerator floatGenerator = default;
 
         [SerializeField]
-        private Rigidbody2D rigidbody2D = default;
+        private Rigidbody2D targetRigidBody = default;
 
         [SerializeField]
         private Space angleSpace = default;
 
         private void FixedUpdate()
         {
-            rigidbody2D.MoveRotation(ConvertSpace(floatGenerator.GetFixedValue()));
+            targetRigidBody.MoveRotation(ConvertSpace(floatGenerator.GetFixedValue()));
         }
 
         public float GetStartingAngle()

@@ -41,12 +41,18 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Assets\_StandardComponents\Rotator.cs" />
+     <Compile Include="Assets\_StandardComponents\Motivators\PhysicsRotator.cs" />
      <Compile Include="Assets\_StandardComponents\MarbleCollisionHandler.cs" />
      <Compile Include="Assets\TestingTools\TestGameRunner.cs" />
-     <Compile Include="Assets\_StandardComponents\FloatGenerator.cs" />
      <Compile Include="Assets\_StandardComponents\DoNotRotate.cs" />
      <Compile Include="Assets\_ModAssets\Scripts\ModdedLevelRunner.cs" />
+     <Compile Include="Assets\_StandardComponents\NumberGenerators\FloatGenerator.cs" />
+     <Compile Include="Assets\_StandardComponents\NumberGenerators\OscillatingFloatGenerator.cs" />
+     <Compile Include="Assets\_StandardComponents\Math\Perlin.cs" />
+     <Compile Include="Assets\_StandardComponents\NumberGenerators\CurveFloatGenerator.cs" />
+     <Compile Include="Assets\_StandardComponents\NumberGenerators\PerlinFloatGenerator.cs" />
+     <Compile Include="Assets\_StandardComponents\Motivators\PhysicsPositionOscillator.cs" />
+     <Compile Include="Assets\_StandardComponents\Math\MathUtils.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />

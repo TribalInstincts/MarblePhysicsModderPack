@@ -14,7 +14,7 @@ namespace MarblePhysics
         {
             PingPong,
             Sin,
-            Cos
+            Repeat
         }
 
         [SerializeField]
@@ -30,8 +30,8 @@ namespace MarblePhysics
             float value = oscillationPattern switch
             {
                 OscillationPattern.Sin => (1 + Mathf.Sin(GetFixedTime())) * .5f,
-                OscillationPattern.Cos => (1 + Mathf.Cos(GetFixedTime())) * .5f,
-                OscillationPattern.PingPong => Mathf.Repeat(GetFixedTime(), 1f),
+                OscillationPattern.PingPong => Mathf.PingPong(GetFixedTime(), 1f),
+                OscillationPattern.Repeat => Mathf.Repeat(GetFixedTime(), 1f),
                 _ => throw new ArgumentOutOfRangeException("Undefined Wave form: " + oscillationPattern)
             };
 

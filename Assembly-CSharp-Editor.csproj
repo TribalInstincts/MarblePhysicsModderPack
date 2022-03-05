@@ -42,6 +42,8 @@
   </PropertyGroup>
   <ItemGroup>
      <Compile Include="Assets\MarblePhysics Mod Tools\Scripts\Editor\ModToolsMenu.cs" />
+     <Compile Include="Assets\_StandardComponents\Motivators\Editor\PhysicsRotatorEditor.cs" />
+     <Compile Include="Assets\_StandardComponents\Motivators\Editor\PhysicsPositionOscillatorEditor.cs" />
      <None Include="Assets\UMod\Resources\Editor\Data\Readme.txt" />
      <Reference Include="UnityEngine">
      <HintPath>C:\Program Files\Unity\Hub\Editor\2022.1.0b8\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>

@@ -3,7 +3,7 @@
 namespace MarblePhysics
 {
     /// <summary>
-    /// Returns 
+    /// Smoothly moves randomly between your min and max value while generally staying near the average of the two 
     /// </summary>
     public class PerlinFloatGenerator : FloatGenerator
     {
@@ -15,7 +15,7 @@ namespace MarblePhysics
 
         public override float GetFixedValue()
         {
-            return Mathf.Lerp(minValue, maxValue, Perlin.Noise(GetFixedTime()));
+            return Mathf.Lerp(minValue, maxValue,  (1 + Perlin.Noise(GetFixedTime())) * .5f);
         }
 
         public override float GetMinimum()

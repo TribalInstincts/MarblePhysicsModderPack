@@ -28,7 +28,12 @@ namespace MarblePhysics
 
         protected float GetFixedTime()
         {
-            return (Time.fixedTime + timeOffset) * timeSpeed;
+            float time = Time.fixedTime;
+            if (!Application.isPlaying)
+            {
+                time = Time.realtimeSinceStartup;
+            }
+            return (time + timeOffset) * timeSpeed;
         }
 
         public abstract float GetFixedValue();
