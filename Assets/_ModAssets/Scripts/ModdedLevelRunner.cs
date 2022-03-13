@@ -44,7 +44,7 @@ namespace TribalInstincts
             {
                 activePlayerEntry.SetGameState(PlayerGameState.InPlay);
             }
-            yield return new WaitForSeconds(5f);
+            yield return new WaitForSeconds(15f);
             isGameOver = true;
         }
 

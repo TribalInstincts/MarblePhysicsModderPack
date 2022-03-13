@@ -37,7 +37,7 @@ namespace MarblePhysics
                 case SpawnTreatment.RandomWithinBounds:
                     foreach (Marble marble in marbles)
                     {
-                        marble.Teleport(GetPositionWithinBounds(), false, true);
+                        marble.Teleport(GetPositionWithinBounds(), false, true, true);
                     }
                     break;
                 case SpawnTreatment.Line:
@@ -62,7 +62,7 @@ namespace MarblePhysics
                     foreach (Marble marble in marbles)
                     {
                         nextPosition += collider2D.transform.up * marble.Size.y;
-                        marble.Teleport(nextPosition, false, true);
+                        marble.Teleport(nextPosition, false, true, true);
                     }
                     break;
                 default:

@@ -96,7 +96,7 @@ namespace MarblePhysics
                 
                 bool DrawHandle(Transform target)
                 {
-                    float size = HandleUtility.GetHandleSize(pointA.position) * 0.1f;
+                    float size = HandleUtility.GetHandleSize(target.position) * 0.1f;
                     Vector3 snap = Vector3.one * 0.5f;
 
                     EditorGUI.BeginChangeCheck();

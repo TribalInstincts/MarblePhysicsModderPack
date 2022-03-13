@@ -1,4 +1,6 @@
+using System;
 using MarblePhysics.Modding.Shared.Player;
+using MarblePhysics.Modding.StandardComponents.Filters;
 using UnityEngine;
 
 namespace MarblePhysics.Modding.StandardComponents
@@ -8,13 +10,31 @@ namespace MarblePhysics.Modding.StandardComponents
     /// </summary>
     public class MarbleCollisionHandler : MonoBehaviour
     {
-        [SerializeField, Tooltip("OnStay events are disabled by default due to them being less commonly used and " +
-                                 "have a(VERY SMALL) per-frame performance cost. Don't hesitate to enable if you need it")]
-        private bool usesStayEvents = false;
+        [Serializable, Flags]
+        public enum Events
+        {
+            Enter = 1,
+            Exit = 2,
+            Stay = 4
+        }
+
+        [SerializeField]
+        private Events enabledEvents = Events.Enter | Events.Exit;
+        public Events EnabledEvents => enabledEvents;
+
+        [SerializeField]
+        private MarbleFilter filter = default;
+        
+        private bool usesFilter;
+
+        protected virtual void Awake()
+        {
+            usesFilter = filter != null;
+        }
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.TryGetComponent(out Marble marble))
+            if (enabledEvents.HasFlag(Events.Enter) && other.TryGetComponent(out Marble marble) && PassesFilter(marble))
             {
                 OnMarbleTriggerEnter(marble);
             }
@@ -22,7 +42,7 @@ namespace MarblePhysics.Modding.StandardComponents
 
         private void OnTriggerExit2D(Collider2D other)
         {
-            if (other.TryGetComponent(out Marble marble))
+            if (enabledEvents.HasFlag(Events.Exit) && other.TryGetComponent(out Marble marble) && PassesFilter(marble))
             {
                 OnMarbleTriggerExit(marble);
             }
@@ -30,7 +50,7 @@ namespace MarblePhysics.Modding.StandardComponents
 
         private void OnTriggerStay2D(Collider2D other)
         {
-            if (usesStayEvents && other.TryGetComponent(out Marble marble))
+            if (enabledEvents.HasFlag(Events.Stay) && other.TryGetComponent(out Marble marble) && PassesFilter(marble))
             {
                 OnMarbleTriggerStay(marble);
             }
@@ -38,7 +58,7 @@ namespace MarblePhysics.Modding.StandardComponents
 
         private void OnCollisionEnter2D(Collision2D other)
         {
-            if (other.gameObject.TryGetComponent(out Marble marble))
+            if (enabledEvents.HasFlag(Events.Enter) && other.gameObject.TryGetComponent(out Marble marble) && PassesFilter(marble))
             {
                 OnMarbleCollisionEnter(marble, other);
             }
@@ -46,7 +66,7 @@ namespace MarblePhysics.Modding.StandardComponents
 
         private void OnCollisionExit2D(Collision2D other)
         {
-            if (other.gameObject.TryGetComponent(out Marble marble))
+            if (enabledEvents.HasFlag(Events.Exit) && other.gameObject.TryGetComponent(out Marble marble) && PassesFilter(marble))
             {
                 OnMarbleCollisionExit(marble, other);
             }
@@ -54,10 +74,15 @@ namespace MarblePhysics.Modding.StandardComponents
 
         private void OnCollisionStay2D(Collision2D other)
         {
-            if (usesStayEvents && other.gameObject.TryGetComponent(out Marble marble))
+            if (enabledEvents.HasFlag(Events.Stay) && other.gameObject.TryGetComponent(out Marble marble) && PassesFilter(marble))
             {
                 OnMarbleCollisionStay(marble, other);
             }
+        }
+        
+        private bool PassesFilter(Marble marble)
+        {
+            return !usesFilter || filter.PassesFilter(marble);
         }
 
         /// <summary>
@@ -70,21 +95,21 @@ namespace MarblePhysics.Modding.StandardComponents
         /// <summary>
         /// Called once on the frame a marble is no longer touching a collider that is set to IsTrigger.
         /// </summary>
-        private void OnMarbleTriggerExit(Marble other)
+        protected virtual void OnMarbleTriggerExit(Marble marble)
         {
         }
 
         /// <summary>
         /// Called each frame while a marble is touching a collider that is set to IsTrigger.
         /// </summary>
-        private void OnMarbleTriggerStay(Marble other)
+        protected virtual void OnMarbleTriggerStay(Marble marble)
         {
         }
 
         /// <summary>
         /// Called once on the frame a marble hits a collider
         /// </summary>
-        private void OnMarbleCollisionEnter(Marble marble, Collision2D other)
+        protected virtual void OnMarbleCollisionEnter(Marble marble, Collision2D other)
         {
         }
 
@@ -92,14 +117,14 @@ namespace MarblePhysics.Modding.StandardComponents
         /// <summary>
         /// Called once on the frame a marble leaves contact with a collider
         /// </summary>
-        private void OnMarbleCollisionExit(Marble marble, Collision2D other)
+        protected virtual void OnMarbleCollisionExit(Marble marble, Collision2D other)
         {
         }
 
         /// <summary>
         /// Called each frame while a marble is touching a collider
         /// </summary>
-        private void OnMarbleCollisionStay(Marble marble, Collision2D other)
+        protected virtual void OnMarbleCollisionStay(Marble marble, Collision2D other)
         {
         }
     }
