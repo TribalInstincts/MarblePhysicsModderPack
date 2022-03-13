@@ -21,7 +21,7 @@ namespace MarblePhysics
         {
             targetRigidBody.MovePosition(GetNextPosition());
         }
-        
+
         public Vector3 GetNextPosition()
         {
             return Vector3.Lerp(pointA.position, pointB.position, floatGenerator.GetFixedValue());

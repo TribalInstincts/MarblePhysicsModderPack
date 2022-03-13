@@ -1,20 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using MarblePhysics;
 using MarblePhysics.Modding.Shared;
 using MarblePhysics.Modding.Shared.Level;
 using MarblePhysics.Modding.Shared.Player;
 using UnityEngine;
 
-namespace TribalInstincts
+namespace MarblePhysics
 {
-    public class ModdedLevelRunner : LevelRunner
+    public class ForcefieldEscapeLevelRunner : LevelRunner
     {
         private bool isGameOver = false;
-
-        [SerializeField]
-        private SpawnZone spawnZone = default;
         
         public override void Initialize(HashSet<PlayerReference> players)
         {
@@ -23,13 +19,13 @@ namespace TribalInstincts
 
         public override IEnumerator PrepareGame()
         {
-            spawnZone.PlaceMarbles(InitialPlayers.Select(p =>
+            foreach (PlayerReference playerReference in InitialPlayers)
             {
-                Marble marble = SpawnMarble(p);
+                Marble marble = SpawnMarble(playerReference);
+                marble.transform.position = Random.insideUnitCircle * 2;
                 marble.gameObject.SetActive(true);
-                return marble;
-            }).ToArray());
-            
+            }
+
             yield break;
         }
 

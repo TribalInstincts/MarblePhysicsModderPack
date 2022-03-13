@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MarblePhysics_Mod_Tools.Generated
+namespace ModTools.Generated
 {
     using UMod.Shared;
     

@@ -11,7 +11,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace>MarblePhysics</RootNamespace>
+    <RootNamespace>TribalInstincts</RootNamespace>
     <ProjectGuid>{dff61d65-2312-b325-64cf-17f7c388ff41}</ProjectGuid>
     <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
@@ -42,23 +42,30 @@
   </PropertyGroup>
   <ItemGroup>
      <Compile Include="Assets\_StandardComponents\Motivators\PhysicsRotator.cs" />
+     <Compile Include="Assets\_StandardComponents\CameraControllers\StaticCameraController.cs" />
+     <Compile Include="Assets\ExampleLevels\ForcefieldEscape\ForcefieldEscapeLevelRunner.cs" />
+     <Compile Include="Assets\_StandardComponents\LevelRunners\StandardLevelRunner.cs" />
      <Compile Include="Assets\_StandardComponents\MarbleCollisionHandler.cs" />
-     <Compile Include="Assets\TestingTools\TestGameRunner.cs" />
-     <Compile Include="Assets\_StandardComponents\DoNotRotate.cs" />
-     <Compile Include="Assets\_ModAssets\Scripts\ModdedLevelRunner.cs" />
-     <Compile Include="Assets\_StandardComponents\NumberGenerators\FloatGenerator.cs" />
      <Compile Include="Assets\_StandardComponents\NumberGenerators\OscillatingFloatGenerator.cs" />
      <Compile Include="Assets\_StandardComponents\Math\Perlin.cs" />
-     <Compile Include="Assets\_StandardComponents\NumberGenerators\CurveFloatGenerator.cs" />
-     <Compile Include="Assets\_StandardComponents\NumberGenerators\PerlinFloatGenerator.cs" />
      <Compile Include="Assets\_StandardComponents\Motivators\PhysicsPositionOscillator.cs" />
+     <Compile Include="Assets\_StandardComponents\NumberGenerators\CurveFloatGenerator.cs" />
+     <Compile Include="Assets\_StandardComponents\SpawnZones\SpawnZone.cs" />
+     <Compile Include="Assets\TestingTools\TestGameRunner.cs" />
+     <Compile Include="Assets\_StandardComponents\NumberGenerators\FloatGenerator.cs" />
+     <Compile Include="Assets\_StandardComponents\DoNotRotate.cs" />
+     <Compile Include="Assets\_ModAssets\Scripts\ModdedLevelRunner.cs" />
      <Compile Include="Assets\_StandardComponents\Math\MathUtils.cs" />
+     <Compile Include="Assets\_StandardComponents\NumberGenerators\PerlinFloatGenerator.cs" />
+     <Compile Include="Assets\_StandardComponents\SpawnZones\ColliderSpawnZone.cs" />
+     <Compile Include="Assets\_StandardComponents\CameraControllers\ICameraController.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro_Mobile.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF SSD.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface-Mobile.shader" />
+     <None Include="Assets\UMod\ResourcesGenerated\Referencing\AssemblyCache\active.txt" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface.shader" />
      <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Custom-Atlas.shader" />

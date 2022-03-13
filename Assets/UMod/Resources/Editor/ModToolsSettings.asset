@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   toolsIconSmall: {fileID: 0}
   toolsIconLarge: {fileID: 0}
-  toolsName: MarblePhysics Mod Tools
+  toolsName: ModTools
   toolsVersion: 0.1.0
   firstRunWindow:
     assemblyQualifiedName: 
@@ -26,8 +26,8 @@ MonoBehaviour:
   syncGameVersion: 1
   modFileExtension: .marble
   commandLineLaunchFormat: +mod=$PATH
-  targetUnityVersion: 2022.1.0b4
-  allowAnyUnityVersion: 0
+  targetUnityVersion: 2022.1.0b8
+  allowAnyUnityVersion: 1
   developerWebsiteURL: 
   onlineDocumentationURL: 
   onlineScriptingReferenceURL: 

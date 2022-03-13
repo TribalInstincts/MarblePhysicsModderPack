@@ -6,6 +6,9 @@ using MarblePhysics.Modding.Shared.Level;
 using MarblePhysics.Modding.Shared.Player;
 using MarblePhysics.Modding.Shared.Theme;
 using UnityEngine;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 namespace TribalInstincts
 {
@@ -20,20 +23,50 @@ namespace TribalInstincts
         [SerializeField]
         private CameraManager cameraManager = default;
 
+        private LevelRunner levelRunner;
+
         private void Start()
         {
+            if (TryGetValidLevelRunner(out LevelRunner levelRunner))
+            {
+                this.levelRunner = levelRunner;
+                StartCoroutine(RunGame(levelRunner));
+            }
+            else
+            {
+#if UNITY_EDITOR
+                EditorApplication.isPlaying = false;
+#endif
+            }
+        }
+
+        private bool TryGetValidLevelRunner(out LevelRunner levelRunner)
+        {
+            bool hasErrors = false;
+
+            levelRunner = null;
+
             LevelRunner[] levelRunnersInScene = FindObjectsOfType<LevelRunner>();
             if (levelRunnersInScene.Length != 1)
             {
                 Debug.LogError("You must have exactly one LevelRunner instance in the scene.");
-                return;
+                return false;
             }
 
-            StartCoroutine(RunGame(levelRunnersInScene[0]));
+            levelRunner = levelRunnersInScene[0];
+
+            if (levelRunner.LayerConfig == null)
+            {
+                Debug.LogError("Please add a CollisionMatrix to your Level and bind it to your LevelRunner!");
+                hasErrors = true;
+            }
+
+            return !hasErrors;
         }
 
         private IEnumerator RunGame(LevelRunner levelRunner)
         {
+            levelRunner.LayerConfig.CollisionMatrix.Apply();
             ThemeManager.Instance.ChangeToRandomTheme();
             Debug.Log("Starting game");
             cameraManager.SetCameraController(levelRunner);
@@ -58,6 +91,7 @@ namespace TribalInstincts
         public override Marble AcquireInstance(PlayerReference playerReference)
         {
             Marble newMarble = Instantiate(marblePrefab);
+            newMarble.Init(levelRunner.LayerConfig.DefaultMarbleLayer);
             newMarble.SetPlayer(playerReference);
             return newMarble;
         }

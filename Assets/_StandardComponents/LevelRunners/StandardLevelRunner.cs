@@ -1,20 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using MarblePhysics;
 using MarblePhysics.Modding.Shared;
 using MarblePhysics.Modding.Shared.Level;
 using MarblePhysics.Modding.Shared.Player;
 using UnityEngine;
+using UnityEngine.UIElements;
 
-namespace TribalInstincts
+namespace MarblePhysics
 {
-    public class ModdedLevelRunner : LevelRunner
+    public class StandardLevelRunner : LevelRunner
     {
-        private bool isGameOver = false;
+        [SerializeField]
+        private ICameraController cameraController = default;
 
         [SerializeField]
-        private SpawnZone spawnZone = default;
+        private SpawnZone[] spawnZones = default;
+        
+        private bool isGameOver = false;
         
         public override void Initialize(HashSet<PlayerReference> players)
         {
@@ -23,19 +26,19 @@ namespace TribalInstincts
 
         public override IEnumerator PrepareGame()
         {
-            spawnZone.PlaceMarbles(InitialPlayers.Select(p =>
+            foreach (PlayerReference playerReference in InitialPlayers)
             {
-                Marble marble = SpawnMarble(p);
+                Marble marble = SpawnMarble(playerReference);
+                //spawnZones[0].PlaceMarble(marble);
                 marble.gameObject.SetActive(true);
-                return marble;
-            }).ToArray());
-            
+            }
+
             yield break;
         }
 
         public override (Vector2 position, float size, Bounds2D?) GetCameraPlacement(Camera forCamera)
         {
-            return (Vector2.zero, 22, null);
+            return cameraController.GetCameraPlacement(forCamera);
         }
 
         public override IEnumerator RunGame()

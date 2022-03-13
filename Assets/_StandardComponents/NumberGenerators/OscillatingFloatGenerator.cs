@@ -6,7 +6,6 @@ namespace MarblePhysics
     /// <summary>
     /// Returns a value between 0.0 and 1.0 in a cos wave pattern
     /// </summary>
-    [Serializable]
     public class OscillatingFloatGenerator : FloatGenerator
     {
         [Serializable]

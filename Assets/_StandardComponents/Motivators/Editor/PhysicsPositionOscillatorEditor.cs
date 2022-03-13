@@ -5,6 +5,7 @@ using UnityEngine;
 namespace MarblePhysics
 {
     [CustomEditor(typeof(PhysicsPositionOscillator))]
+    [CanEditMultipleObjects]
     public class PhysicsPositionOscillatorEditor : UnityEditor.Editor
     {
         private SerializedProperty targetRigidBodyProp;

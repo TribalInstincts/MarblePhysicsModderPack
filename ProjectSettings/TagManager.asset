@@ -12,32 +12,32 @@ TagManager:
   - Bloom
   - Water
   - UI
-  - Environment
-  - PlayerTrigger
-  - Player
-  - Zone
-  - Environment2
-  - Projectile
-  - ArenaItem
-  - PlayerNoHit
+  - Marble-FG
+  - Marble-BG
+  - 
+  - 
+  - 
+  - Environment-FG
+  - Environment-BG
+  - 
+  - 
+  - 
+  - MarbleTrigger-FG
+  - MarbleTrigger-BG
+  - 
+  - 
+  - 
+  - Projectile-FG
+  - Projectile-BG
+  - 
+  - 
+  - 
+  - ArenaItem-FG
+  - ArenaItem-BG
   - 
   - 
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - Custom5
-  - Custom4
-  - Custom3
-  - Custom2
-  - Custom1
-  - Custom0
   m_SortingLayers:
   - name: Background
     uniqueID: 2117023937

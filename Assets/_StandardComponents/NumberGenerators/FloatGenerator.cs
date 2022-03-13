@@ -7,7 +7,6 @@ namespace MarblePhysics
     /// <summary>
     /// Base class for a series of classes to help generate commonly used values.
     /// </summary>
-    [Serializable]
     public abstract class FloatGenerator : MonoBehaviour
     {
         [SerializeField, Tooltip("Offsets the time evaluation by a random offset.")]
@@ -31,6 +30,10 @@ namespace MarblePhysics
             float time = Time.fixedTime;
             if (!Application.isPlaying)
             {
+                if (randomStartValue && timeOffset == 0)
+                {
+                    timeOffset = Random.Range(0f, 1000f);
+                }
                 time = Time.realtimeSinceStartup;
             }
             return (time + timeOffset) * timeSpeed;
