@@ -46,10 +46,6 @@ namespace MarblePhysics.Modding.StandardComponents
                 errors.AppendLine("- A collision handler requires a Collider2D!");
                 hasErrors = true;
             }
-            else
-            {
-                
-            }
             
             if (marbleCollisionHandler.gameObject.layer != lastLayer)
             {

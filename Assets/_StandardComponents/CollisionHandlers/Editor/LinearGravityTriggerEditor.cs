@@ -1,20 +1,19 @@
-using System;
 using UnityEditor;
 using UnityEngine;
 
 namespace MarblePhysics.Modding.StandardComponents
 {
-    [CustomEditor(typeof(ApplyForceTrigger))]
+    [CustomEditor(typeof(LinearGravityTrigger))]
     [CanEditMultipleObjects]
-    public class ApplyForceTriggerEditor : MarbleCollisionHandlerEditor
+    public class LinearGravityTriggerEditor : MarbleCollisionHandlerEditor
     {
-        private ApplyForceTrigger trigger;
+        private LinearGravityTrigger trigger;
         
         private Space lastSpace;
         protected override void OnEnable()
         {
             base.OnEnable();
-            trigger = target as ApplyForceTrigger;
+            trigger = target as LinearGravityTrigger;
             lastSpace = trigger.AngleVector.Space;
         }
 

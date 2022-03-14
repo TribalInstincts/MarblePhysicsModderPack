@@ -49,15 +49,22 @@ namespace TribalInstincts
             LevelRunner[] levelRunnersInScene = FindObjectsOfType<LevelRunner>();
             if (levelRunnersInScene.Length != 1)
             {
-                Debug.LogError("You must have exactly one LevelRunner instance in the scene.");
+                Debug.LogError("You must have exactly one LevelRunner instance in the scene. Found: " + levelRunnersInScene.Length);
+                return false;
+            }
+            levelRunner = levelRunnersInScene[0];
+
+
+            LayerConfig[] layerConfigs = levelRunner.GetComponentsInChildren<LayerConfig>();
+            if (layerConfigs.Length != 1)
+            {
+                Debug.LogError("You must have exactly one LayerConfig in the scene. Found: " + layerConfigs.Length);
                 return false;
             }
 
-            levelRunner = levelRunnersInScene[0];
-
-            if (levelRunner.LayerConfig == null)
+            if (levelRunner.GetComponentInChildren<LayerConfig>() == null)
             {
-                Debug.LogError("Please add a CollisionMatrix to your Level and bind it to your LevelRunner!");
+                Debug.LogError("You're missing a LayerConfig!");
                 hasErrors = true;
             }
 
@@ -66,7 +73,7 @@ namespace TribalInstincts
 
         private IEnumerator RunGame(LevelRunner levelRunner)
         {
-            levelRunner.LayerConfig.CollisionMatrix.Apply();
+            LayerConfig.LatestInstance.CollisionMatrix.Apply();
             ThemeManager.Instance.ChangeToRandomTheme();
             Debug.Log("Starting game");
             cameraManager.SetCameraController(levelRunner);
@@ -91,7 +98,7 @@ namespace TribalInstincts
         public override Marble AcquireInstance(PlayerReference playerReference)
         {
             Marble newMarble = Instantiate(marblePrefab);
-            newMarble.Init(levelRunner.LayerConfig.DefaultMarbleLayer);
+            newMarble.Init(LayerConfig.LatestInstance.DefaultMarbleLayer);
             newMarble.SetPlayer(playerReference);
             return newMarble;
         }

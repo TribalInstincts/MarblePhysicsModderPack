@@ -25,5 +25,15 @@ namespace MarblePhysics
         {
             return RadianToVector2(degree * Mathf.Deg2Rad);
         }
+
+        public static Vector2 ConvertDegreesToVector(Transform transform, float angleDegrees, Space space = Space.World)
+        {
+            float worldAngle = angleDegrees;
+            if (space == Space.Self)
+            {
+                worldAngle += transform.eulerAngles.z;
+            }
+            return DegreeToVector2(worldAngle);
+        }
     }
 }
