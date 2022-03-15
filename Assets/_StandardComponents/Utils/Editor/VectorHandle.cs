@@ -15,7 +15,7 @@ namespace MarblePhysics.Modding.StandardComponents
 
         public delegate void SetMagnitude(float magnitude);
         
-        public static void DrawHandle(GameObject gameObject, GetAngle getAngle, SetAngle setAngle, GetMagnitude getMagnitude, SetMagnitude setMagnitude, Space space = Space.World)
+        public static bool DrawHandle(GameObject gameObject, GetAngle getAngle, SetAngle setAngle, GetMagnitude getMagnitude, SetMagnitude setMagnitude, Space space = Space.World)
         {
             Vector2 startPoint = gameObject.transform.position;
             Vector2 direction = MathUtils.ConvertDegreesToVector(gameObject.transform, getAngle(), space) * getMagnitude();
@@ -42,7 +42,10 @@ namespace MarblePhysics.Modding.StandardComponents
 
                 setAngle(angle);
                 setMagnitude(newDirection.magnitude);
+                return true;
             }
+
+            return false;
         }
     }
 }

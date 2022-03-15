@@ -19,12 +19,16 @@ namespace MarblePhysics.Modding.StandardComponents
 
         private void OnSceneGUI()
         {
-            CheckSpaceChange();
+            bool updated = CheckSpaceChange();
             AngleVector angleVector = trigger.AngleVector;
-            VectorHandle.DrawHandle(trigger.gameObject, angleVector.GetAngle, angleVector.SetAngle, angleVector.GetStrength, angleVector.SetMagnitude, angleVector.Space);
+            updated |= VectorHandle.DrawHandle(trigger.gameObject, angleVector.GetAngle, angleVector.SetAngle, angleVector.GetStrength, angleVector.SetMagnitude, angleVector.Space);
+            if (updated)
+            {
+                EditorUtility.SetDirty(trigger);
+            }
         }
 
-        private void CheckSpaceChange()
+        private bool CheckSpaceChange()
         {
             Space currentSpace = trigger.AngleVector.Space;
             if (currentSpace != lastSpace)
@@ -42,7 +46,10 @@ namespace MarblePhysics.Modding.StandardComponents
                 trigger.AngleVector.SetAngle(angle);
                 
                 lastSpace = currentSpace;
+                return true;
             }
+
+            return false;
         }
     }
 }

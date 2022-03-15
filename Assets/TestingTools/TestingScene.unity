@@ -179,6 +179,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8267380936084862921, guid: b3b866007430e614fb4848068ab95c1b, type: 3}
+      propertyPath: orthographic size
+      value: 17
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: b3b866007430e614fb4848068ab95c1b, type: 3}
@@ -308,6 +312,18 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2345829883373181549, guid: 6482e913618048241a573959fad0d453, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2345829883373181549, guid: 6482e913618048241a573959fad0d453, type: 3}
+      propertyPath: m_SortingLayer
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2345829883373181549, guid: 6482e913618048241a573959fad0d453, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -833867089
+      objectReference: {fileID: 0}
     - target: {fileID: 7004782079845463274, guid: 6482e913618048241a573959fad0d453, type: 3}
       propertyPath: m_RootOrder
       value: 1

@@ -35,7 +35,7 @@ namespace TribalInstincts
 
         public override (Vector2 position, float size, Bounds2D?) GetCameraPlacement(Camera forCamera)
         {
-            return (Vector2.zero, 22, null);
+            return (Vector2.zero, 17, null);
         }
 
         public override IEnumerator RunGame()
