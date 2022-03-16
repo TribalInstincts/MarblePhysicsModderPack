@@ -1,4 +1,3 @@
-using System;
 using UnityEditor;
 using UnityEngine;
 
@@ -18,11 +17,11 @@ namespace MarblePhysics.Modding.StandardComponents
             lastSpace = trigger.AngleVector.Space;
         }
 
-        private void OnSceneGUI()
+        protected void OnSceneGUI()
         {
             bool updated = CheckSpaceChange();
             AngleVector angleVector = trigger.AngleVector;
-            updated |= VectorHandle.DrawHandle(trigger.gameObject, angleVector.GetAngle, angleVector.SetAngle, angleVector.GetStrength, angleVector.SetMagnitude, angleVector.Space);
+            updated |= VectorHandle.DrawHandle(trigger.gameObject, trigger, angleVector);
             if (updated)
             {
                 EditorUtility.SetDirty(trigger);

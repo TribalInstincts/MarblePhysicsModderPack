@@ -8,6 +8,15 @@ namespace MarblePhysics.Modding.StandardComponents
         [SerializeField, Tooltip("The strength of the gravity. Negative numbers pull towards the center. Positive numbers repulse.")]
         private float magnitude = -9.81f;
 
+        [SerializeField, Tooltip("Local Offset from this transforms center for where the gravity push|pull is centered.")]
+        private Vector2 gravityCenterLocalOffset = default;
+
+        public Vector2 GravityCenterLocalOffset
+        {
+            get => gravityCenterLocalOffset;
+            set => gravityCenterLocalOffset = value;
+        }
+
         [SerializeField]
         private EffectorForceMode2D forceMode = default;
 
@@ -63,7 +72,7 @@ namespace MarblePhysics.Modding.StandardComponents
 
         private Vector2 GetGravity(Vector3 otherPosition)
         {
-            Vector2 direction = (otherPosition - transform.position) * gravityDistanceScale;
+            Vector2 direction = (otherPosition - transform.TransformPoint(gravityCenterLocalOffset)) * gravityDistanceScale;
             Vector2 normalizedDirection = direction.normalized;
             switch (forceMode)
             {

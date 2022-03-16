@@ -1,4 +1,3 @@
-using System;
 using System.Text;
 using MarblePhysics.Modding.Shared;
 using UnityEditor;
@@ -11,7 +10,7 @@ namespace MarblePhysics.Modding.StandardComponents
     public class MarbleCollisionHandlerEditor : Editor
     {
         private int lastLayer = -1;
-        private MarbleCollisionHandler marbleCollisionHandler;
+        private MarbleCollisionHandler collisionHandler;
         private LayerConfig layerConfig;
 
         private StringBuilder errors = null;
@@ -22,7 +21,7 @@ namespace MarblePhysics.Modding.StandardComponents
         {
             errors = new StringBuilder();
             
-            marbleCollisionHandler = target as MarbleCollisionHandler;
+            collisionHandler = target as MarbleCollisionHandler;
 
             layerConfig = StageUtility.GetCurrentStageHandle().FindComponentOfType<LayerConfig>();
         }
@@ -41,15 +40,15 @@ namespace MarblePhysics.Modding.StandardComponents
             
             bool hasErrors = false;
 
-            if (!marbleCollisionHandler.TryGetComponent(out Collider2D _))
+            if (!collisionHandler.TryGetComponent(out Collider2D _))
             {
                 errors.AppendLine("- A collision handler requires a Collider2D!");
                 hasErrors = true;
             }
             
-            if (marbleCollisionHandler.gameObject.layer != lastLayer)
+            if (collisionHandler.gameObject.layer != lastLayer)
             {
-                lastLayer = marbleCollisionHandler.gameObject.layer;
+                lastLayer = collisionHandler.gameObject.layer;
 
                 bool anyCollides = false;
                 for (int i = 0; i < 32; i++)
@@ -63,7 +62,7 @@ namespace MarblePhysics.Modding.StandardComponents
                 hasCollisionError = !anyCollides;
             }
 
-            if (marbleCollisionHandler.EnabledEvents == 0)
+            if (collisionHandler.EnabledEvents == 0)
             {
                 hasErrors = true;
                 errors.AppendLine("- This will do nothing if you dont have any events enabled!");
@@ -74,12 +73,12 @@ namespace MarblePhysics.Modding.StandardComponents
                 hasErrors = true;
                 errors.AppendLine("- The layer this game object is on can not collide with any of the defined marble layers in your MarbleCollisionHandler!");
             }
-        
 
             if (hasErrors)
             {
                 EditorGUILayout.HelpBox(errors.ToString().TrimEnd(), MessageType.Error);
             }
         }
+        
     }
 }
