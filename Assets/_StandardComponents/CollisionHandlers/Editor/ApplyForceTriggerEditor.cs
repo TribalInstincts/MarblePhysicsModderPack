@@ -43,7 +43,7 @@ namespace MarblePhysics.Modding.StandardComponents
                     angle += trigger.transform.eulerAngles.z;
                 }
                 
-                trigger.AngleVector.SetAngle(angle);
+                trigger.AngleVector.Angle = angle;
                 
                 lastSpace = currentSpace;
                 return true;

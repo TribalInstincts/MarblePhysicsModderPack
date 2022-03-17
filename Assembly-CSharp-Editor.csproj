@@ -49,6 +49,7 @@
      <Compile Include="Assets\_StandardComponents\Utils\Editor\VectorHandle.cs" />
      <Compile Include="Assets\_StandardComponents\CollisionHandlers\Editor\ApplyForceTriggerEditor.cs" />
      <Compile Include="Assets\_StandardComponents\CollisionHandlers\Editor\RadialGravityTriggerEditor.cs" />
+     <Compile Include="Assets\_StandardComponents\CameraControllers\Editor\StaticCameraControllerEditor.cs" />
      <None Include="Assets\UMod\Resources\Editor\Data\Readme.txt" />
      <Reference Include="UnityEngine">
      <HintPath>C:\Program Files\Unity\Hub\Editor\2022.1.0b8\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>

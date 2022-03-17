@@ -3,11 +3,20 @@ using UnityEngine;
 
 namespace MarblePhysics
 {
-    public class StaticCameraController : ICameraController
+    public class StaticCameraController : CameraController
     {
-        public (Vector2 position, float size, Bounds2D?) GetCameraPlacement(Camera forCamera)
+        [SerializeField]
+        private float size = default;
+
+        public float Size
         {
-            return (Vector2.zero, 22, null);
+            get => size;
+            set => size = value;
+        }
+        
+        public override (Vector2 position, float size, Bounds2D?) GetCameraPlacement(Camera forCamera)
+        {
+            return (transform.position, size, null);
         }
     }
 }

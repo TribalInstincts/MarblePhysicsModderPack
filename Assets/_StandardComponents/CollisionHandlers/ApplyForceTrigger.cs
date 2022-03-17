@@ -6,16 +6,12 @@ namespace MarblePhysics.Modding.StandardComponents
     public class ApplyForceTrigger : MarbleCollisionHandler
     {
         [SerializeField]
-        private Space space = Space.World;
-        public Space Space => space;
-        
-        [SerializeField]
         private ForceMode2D forceMode = default;
 
         [SerializeField]
         private AngleVector angleVector = new() {Angle = 90f, Magnitude = 5f};
         public AngleVector AngleVector => angleVector;
-        
+
         protected override void OnMarbleTriggerEnter(Marble marble)
         {
             ApplyForce(marble);
@@ -38,6 +34,7 @@ namespace MarblePhysics.Modding.StandardComponents
 
         private void ApplyForce(Marble marble)
         {
+            Debug.Log($"Apply force: {angleVector}: {angleVector.GetVector(transform)}");
             marble.ApplyForce(angleVector.GetVector(transform), forceMode);
         }
     }

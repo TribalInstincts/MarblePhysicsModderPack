@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using MarblePhysics.Modding.Shared;
 using MarblePhysics.Modding.Shared.Level;
 using MarblePhysics.Modding.Shared.Player;
@@ -83,7 +84,15 @@ namespace TribalInstincts
             yield return levelRunner.PrepareGame();
             yield return levelRunner.RunGame();
             IEnumerable<PlayerResult> playerResults = levelRunner.GetPlayerResults();
-            Debug.Log("Game over");
+            StringBuilder sb = new StringBuilder();
+            foreach (PlayerResult playerResult in playerResults.OrderBy(pr => pr.Placement))
+            {
+                sb.AppendLine($"\t[{playerResult.Placement}]-{playerResult.Player.Login} + {playerResult.ExtraPoints}");
+            }
+            
+            Debug.Log("GAME OVER! Player Results:\n" + sb.ToString());
+            
+            Time.timeScale = 0;
         }
 
         private HashSet<PlayerReference> CreateBotPlayers(int count)

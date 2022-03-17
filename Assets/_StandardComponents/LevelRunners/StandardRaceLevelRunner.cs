@@ -4,34 +4,31 @@ using System.Linq;
 using MarblePhysics.Modding.Shared;
 using MarblePhysics.Modding.Shared.Level;
 using MarblePhysics.Modding.Shared.Player;
+using MarblePhysics.Modding.StandardComponents;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace MarblePhysics
 {
-    public class StandardLevelRunner : LevelRunner
+    public class StandardRaceLevelRunner : LevelRunner
     {
         [SerializeField]
-        private ICameraController cameraController = default;
+        private CameraController cameraController = default;
 
         [SerializeField]
-        private SpawnZone[] spawnZones = default;
+        private SpawnZone spawnZone = default;
         
         private bool isGameOver = false;
-        
-        public override void Initialize(HashSet<PlayerReference> players)
-        {
-            base.Initialize(players);
-        }
 
+        private Marble[] winners;
+        
         public override IEnumerator PrepareGame()
         {
-            foreach (PlayerReference playerReference in InitialPlayers)
+            spawnZone.PlaceMarbles(InitialPlayers.Select(p =>
             {
-                Marble marble = SpawnMarble(playerReference);
-                //spawnZones[0].PlaceMarble(marble);
+                Marble marble = SpawnMarble(p);
                 marble.gameObject.SetActive(true);
-            }
+                return marble;
+            }).ToArray());
 
             yield break;
         }
@@ -47,17 +44,20 @@ namespace MarblePhysics
             {
                 activePlayerEntry.SetGameState(PlayerGameState.InPlay);
             }
-            yield return new WaitForSeconds(5f);
-            isGameOver = true;
+
+            yield return new WaitUntil(() => isGameOver);
+            print("Game over");
         }
 
         public override IEnumerable<PlayerResult> GetPlayerResults()
         {
-            return InitialPlayers.Select(player => new PlayerResult {Player = player});
+            int placement = 0;
+            return winners.Select(player => new PlayerResult {Player = player.PlayerReference, Placement = placement++});
         }
 
-        public void EndGame()
+        public void EndGame(SeatSet winningSeatSet)
         {
+            this.winners = winningSeatSet.Marbles;
             isGameOver = true;
         }
     }
