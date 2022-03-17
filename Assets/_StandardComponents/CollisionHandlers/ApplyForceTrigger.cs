@@ -34,7 +34,6 @@ namespace MarblePhysics.Modding.StandardComponents
 
         private void ApplyForce(Marble marble)
         {
-            Debug.Log($"Apply force: {angleVector}: {angleVector.GetVector(transform)}");
             marble.ApplyForce(angleVector.GetVector(transform), forceMode);
         }
     }
