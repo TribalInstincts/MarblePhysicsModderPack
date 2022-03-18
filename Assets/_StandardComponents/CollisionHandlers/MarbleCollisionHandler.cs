@@ -20,7 +20,11 @@ namespace MarblePhysics.Modding.StandardComponents
 
         [SerializeField]
         private Events enabledEvents = Events.Enter | Events.Exit;
-        public Events EnabledEvents => enabledEvents;
+        public Events EnabledEvents
+        {
+            get => enabledEvents;
+            set => enabledEvents = value;
+        }
 
         [SerializeField]
         private MarbleFilter filter = default;

@@ -721,7 +721,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enabledEvents: -1
   filter: {fileID: 6378323783933600137}
-  space: 0
   forceMode: 1
   angleVector:
     Angle: 104.15521
@@ -2488,7 +2487,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enabledEvents: 4
   filter: {fileID: 0}
-  space: 0
   forceMode: 0
   angleVector:
     Angle: 143.29286
@@ -2713,6 +2711,55 @@ MonoBehaviour:
   targetRigidBody: {fileID: 1982273270856552820}
   pointA: {fileID: 9073973049531038643}
   pointB: {fileID: 4494952714668490161}
+--- !u!1 &5302361662018888499
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8920196646066981029}
+  - component: {fileID: 6254488438916997050}
+  m_Layer: 0
+  m_Name: Teleporter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8920196646066981029
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5302361662018888499}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 9.221249, y: -0.2551885, z: -2.5374606}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7004782079845463274}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6254488438916997050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5302361662018888499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d52a8673494faf240a5458953abd78b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enabledEvents: 1
+  filter: {fileID: 0}
+  teleportTarget: {fileID: 0}
+  keepVelocity: 0
+  clearTrail: 0
 --- !u!1 &5455467660837442725
 GameObject:
   m_ObjectHideFlags: 0
@@ -3209,8 +3256,9 @@ Transform:
   - {fileID: 861493636}
   - {fileID: 1221127094}
   - {fileID: 365698342}
+  - {fileID: 8920196646066981029}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4110836327040897126
 MonoBehaviour:
@@ -3309,7 +3357,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enabledEvents: 5
   filter: {fileID: 0}
-  space: 0
   forceMode: 1
   angleVector:
     Angle: 73.3641
