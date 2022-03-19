@@ -11,6 +11,8 @@ namespace MarblePhysics.Modding.StandardComponents
         [SerializeField]
         private Transform teleportTarget = default;
 
+        public Transform TeleportTarget => teleportTarget;
+
         [SerializeField]
         private bool keepVelocity = false;
 

@@ -1,3 +1,5 @@
+using System;
+using System.Text;
 using UnityEditor;
 
 namespace MarblePhysics.Modding.StandardComponents
@@ -6,41 +8,34 @@ namespace MarblePhysics.Modding.StandardComponents
     public class TeleportTriggerEditor : MarbleCollisionHandlerEditor
     {
         private TeleportTrigger trigger;
-        private MarbleCollisionHandler.Events currentEvent;
 
         protected override void OnEnable()
         {
+            base.OnEnable();
+            base.SingleEvent = true;
+            base.RestrictedEvents = MarbleCollisionHandler.Events.Enter | MarbleCollisionHandler.Events.Exit;
             trigger = target as TeleportTrigger;
 
-            trigger.EnabledEvents = trigger.EnabledEvents.HasFlag(MarbleCollisionHandler.Events.Enter) ? MarbleCollisionHandler.Events.Enter : MarbleCollisionHandler.Events.Exit;
-            currentEvent = trigger.EnabledEvents;
         }
 
-        public override void OnInspectorGUI()
+        protected override bool TryAppendErrors(StringBuilder stringBuilder)
         {
-            base.OnInspectorGUI();
-            if (trigger.EnabledEvents != currentEvent)
+            bool hasErrors = false;
+            if (trigger.TeleportTarget == null)
             {
-                // if stay is enabled - turn it off.
-                if (trigger.EnabledEvents.HasFlag(MarbleCollisionHandler.Events.Stay))
-                {
-                    trigger.EnabledEvents = currentEvent;
-                }
-                else
-                {
-                    Undo.RecordObject(trigger, "Toggled events");
-                    // else - toggle between the two.
-                    if (currentEvent == MarbleCollisionHandler.Events.Enter)
-                    {
-                        trigger.EnabledEvents = MarbleCollisionHandler.Events.Exit;
-                    }
-                    else
-                    {
-                        trigger.EnabledEvents = MarbleCollisionHandler.Events.Enter;
-                    }
-                }
+                stringBuilder.AppendLine(" - must define a target to teleport to!");
+                hasErrors = true;
             }
-            
+
+            return hasErrors;
+        }
+
+        private void OnSceneGUI()
+        {
+            if (trigger.TeleportTarget != null)
+            {
+                Handles.DrawDottedLine(trigger.transform.position, trigger.TeleportTarget.position, 2f);
+            }
         }
     }
 }

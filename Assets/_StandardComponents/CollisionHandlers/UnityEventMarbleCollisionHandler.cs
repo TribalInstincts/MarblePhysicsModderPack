@@ -1,7 +1,7 @@
+using MarblePhysics.Modding.Shared;
 using MarblePhysics.Modding.Shared.Player;
 using MarblePhysics.Modding.StandardComponents;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace TribalInstincts
 {
@@ -10,9 +10,9 @@ namespace TribalInstincts
     /// </summary>
     public class UnityEventMarbleCollisionHandler : MarbleCollisionHandler
     {
-        public UnityEvent<Marble> OnMarbleEnter = default;
-        public UnityEvent<Marble> OnMarbleStay = default;
-        public UnityEvent<Marble> OnMarbleExit = default;
+        public MarbleUnityEvent OnMarbleEnter = default;
+        public MarbleUnityEvent OnMarbleStay = default;
+        public MarbleUnityEvent OnMarbleExit = default;
         
         protected override void OnMarbleTriggerEnter(Marble marble)
         {

@@ -1,3 +1,4 @@
+using System.Diagnostics.Eventing.Reader;
 using System.Text;
 using MarblePhysics.Modding.Shared;
 using UnityEditor;
@@ -16,9 +17,14 @@ namespace MarblePhysics.Modding.StandardComponents
         private StringBuilder errors = null;
 
         private bool hasCollisionError = false;
-        
+
+        public MarbleCollisionHandler.Events RestrictedEvents;
+        public bool SingleEvent = false;
+        public bool RequireTrigger = false;
+
         protected virtual void OnEnable()
         {
+            RestrictedEvents = MarbleCollisionHandler.Events.Enter | MarbleCollisionHandler.Events.Stay | MarbleCollisionHandler.Events.Exit;
             errors = new StringBuilder();
             
             collisionHandler = target as MarbleCollisionHandler;
@@ -28,21 +34,69 @@ namespace MarblePhysics.Modding.StandardComponents
 
         public override void OnInspectorGUI()
         {
+            
+            
             if (layerConfig == null)
             {
                 EditorGUILayout.HelpBox("You do not have a LayerConfig set! Please create that first", MessageType.Error);
                 return;
             }
             
-            base.OnInspectorGUI();
+            
+            serializedObject.Update();
+            DrawPropertiesExcluding(serializedObject, "enabledEvents");
+
+            
+            EditorGUILayout.LabelField("Collision Events: ");
+            EditorGUILayout.BeginHorizontal();
+            MarbleCollisionHandler.Events newEvents = 0;
+            MarbleCollisionHandler.Events clickedThisFrame = 0;
+            ShowToggle(MarbleCollisionHandler.Events.Enter);
+            ShowToggle(MarbleCollisionHandler.Events.Stay);
+            ShowToggle(MarbleCollisionHandler.Events.Exit);
+
+            if (SingleEvent && clickedThisFrame != 0)
+            {
+                newEvents = clickedThisFrame;
+            }
+            
+            if (newEvents != collisionHandler.EnabledEvents)
+            {
+                Undo.RecordObject(collisionHandler, "Updated events");
+                collisionHandler.EnabledEvents = newEvents;
+            }
+
+            void ShowToggle(MarbleCollisionHandler.Events eventToShow)
+            {
+                if (RestrictedEvents.HasFlag(eventToShow))
+                {
+                    bool isEnabled = collisionHandler.EnabledEvents.HasFlag(eventToShow);
+                    if (GUILayout.Toggle(isEnabled, eventToShow.ToString() + (isEnabled ? "✓" : ""), "Button"))
+                    {
+                        if (!isEnabled)
+                        {
+                            clickedThisFrame = eventToShow;
+                        }
+                        newEvents |= eventToShow;
+                    }
+                }
+            }
+            
+            EditorGUILayout.EndHorizontal();
+            
             errors.Clear();
             errors.AppendLine("Errors found!:");
             
             bool hasErrors = false;
 
-            if (!collisionHandler.TryGetComponent(out Collider2D _))
+            if (!collisionHandler.TryGetComponent(out Collider2D collider2D))
             {
                 errors.AppendLine("- A collision handler requires a Collider2D!");
+                hasErrors = true;
+            }
+            else if (RequireTrigger && !collider2D.isTrigger)
+            {
+                errors.AppendLine("- This component requires the collider to be a trigger!");
                 hasErrors = true;
             }
             
@@ -74,11 +128,22 @@ namespace MarblePhysics.Modding.StandardComponents
                 errors.AppendLine("- The layer this game object is on can not collide with any of the defined marble layers in your MarbleCollisionHandler!");
             }
 
+            bool inheritedErrors = TryAppendErrors(errors);
+            hasErrors |= inheritedErrors;
+
             if (hasErrors)
             {
                 EditorGUILayout.HelpBox(errors.ToString().TrimEnd(), MessageType.Error);
             }
+            
+            serializedObject.ApplyModifiedProperties();
         }
-        
+
+        protected virtual bool TryAppendErrors(StringBuilder stringBuilder)
+        {
+            return false;
+        }
+
+
     }
 }
