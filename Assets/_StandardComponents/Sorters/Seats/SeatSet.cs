@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using MarblePhysics.Modding.Shared.Player;
 using MarblePhysics.Modding.StandardComponents.Filters;
@@ -6,9 +7,13 @@ using UnityEngine.Events;
 
 namespace MarblePhysics.Modding.StandardComponents
 {
+    [Serializable]
+    public class SeatSetUnityEvent : UnityEvent<SeatSet> {
+    }
+    
     public class SeatSet : MonoBehaviour
     {
-        public UnityEvent<SeatSet> SeatSetFilled = default;
+        public SeatSetUnityEvent SeatSetFilled = default;
         
         [SerializeField]
         private Seat[] seats = default;

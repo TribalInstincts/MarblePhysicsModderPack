@@ -1,15 +1,15 @@
+using MarblePhysics.Modding.Shared;
 using MarblePhysics.Modding.Shared.Player;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace MarblePhysics.Modding.StandardComponents
 {
     public class Seat : MonoBehaviour
     {
-        public UnityEvent<Marble> SeatTaken;
-        
+        public MarbleUnityEvent SeatTaken;
+
         public Marble Marble { get; private set; }
-        
+
         public virtual bool TryTakeMarble(Marble marble)
         {
             if (this.Marble == null)
@@ -20,7 +20,7 @@ namespace MarblePhysics.Modding.StandardComponents
                 return true;
             }
 
-            
+
             return false;
         }
     }
