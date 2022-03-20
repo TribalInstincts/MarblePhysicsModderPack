@@ -47,6 +47,7 @@
      <Compile Include="Assets\_StandardComponents\CollisionHandlers\MarbleCollisionHandler.cs" />
      <Compile Include="Assets\_StandardComponents\Utils\ValueUtilities\Float\OscillatingFloatGenerator.cs" />
      <Compile Include="Assets\_StandardComponents\Sorters\Seats\Seat.cs" />
+     <Compile Include="Assets\_StandardComponents\_Prefabs\Menu\StandardComponentMetadata.cs" />
      <Compile Include="Assets\_StandardComponents\Sorters\Seats\SeatSorter.cs" />
      <Compile Include="Assets\_StandardComponents\SpawnZones\SpawnZone.cs" />
      <Compile Include="Assets\_StandardComponents\Utils\ValueUtilities\AngleVector.cs" />
@@ -340,6 +341,9 @@
      </Reference>
      <Reference Include="UnityEditor.UnityConnectModule">
      <HintPath>C:\Program Files\Unity\Hub\Editor\2022.1.0b8\Editor\Data\Managed\UnityEngine\UnityEditor.UnityConnectModule.dll</HintPath>
+     </Reference>
+     <Reference Include="MarblePhysicsEditor">
+     <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Assets\Plugins\MarblePhysicsEditor.dll</HintPath>
      </Reference>
      <Reference Include="Trivial.Mono.Cecil">
      <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Assets\UMod\Plugin\Trivial.Mono.Cecil.dll</HintPath>

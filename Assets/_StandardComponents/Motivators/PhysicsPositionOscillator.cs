@@ -10,11 +10,23 @@ namespace MarblePhysics
         [SerializeField]
         private Rigidbody2D targetRigidBody = default;
 
+        public Rigidbody2D TargetRigidBody => targetRigidBody;
+
         [SerializeField]
         private Transform pointA = default;
+        public Transform PointA
+        {
+            get => pointA;
+            set => pointA = value;
+        }
 
         [SerializeField]
         private Transform pointB = default;
+        public Transform PointB
+        {
+            get => pointB;
+            set => pointB = value;
+        }
 
 
         private void FixedUpdate()

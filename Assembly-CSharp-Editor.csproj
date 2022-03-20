@@ -43,6 +43,7 @@
   <ItemGroup>
      <Compile Include="Assets\_StandardComponents\CollisionHandlers\Editor\LinearGravityTriggerEditor.cs" />
      <Compile Include="Assets\_StandardComponents\CollisionHandlers\Editor\MarbleCollisionHandlerEditor.cs" />
+     <Compile Include="Assets\_StandardComponents\_Prefabs\Menu\Editor\StandardComponentsWindow.cs" />
      <Compile Include="Assets\_StandardComponents\Motivators\Editor\PhysicsRotatorEditor.cs" />
      <Compile Include="Assets\ModTools\Scripts\Editor\ModToolsMenu.cs" />
      <Compile Include="Assets\_StandardComponents\Motivators\Editor\PhysicsPositionOscillatorEditor.cs" />
@@ -50,6 +51,7 @@
      <Compile Include="Assets\_StandardComponents\Utils\Editor\VectorHandle.cs" />
      <Compile Include="Assets\_StandardComponents\CollisionHandlers\Editor\ApplyForceTriggerEditor.cs" />
      <Compile Include="Assets\_StandardComponents\CameraControllers\Editor\StaticCameraControllerEditor.cs" />
+     <Compile Include="Assets\_StandardComponents\_Prefabs\Menu\Editor\StandardComponentMetadataEditor.cs" />
      <Compile Include="Assets\_StandardComponents\CollisionHandlers\Editor\RadialGravityTriggerEditor.cs" />
      <None Include="Assets\UMod\Resources\Editor\Data\Readme.txt" />
      <Reference Include="UnityEngine">
@@ -306,6 +308,9 @@
      </Reference>
      <Reference Include="UnityEditor.WindowsStandalone.Extensions">
      <HintPath>C:\Program Files\Unity\Hub\Editor\2022.1.0b8\Editor\Data\PlaybackEngines\WindowsStandaloneSupport\UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
+     </Reference>
+     <Reference Include="MarblePhysicsEditor">
+     <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Assets\Plugins\MarblePhysicsEditor.dll</HintPath>
      </Reference>
      <Reference Include="UMod-Exporter">
      <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Assets\UMod\Plugin\Editor\UMod-Exporter.dll</HintPath>

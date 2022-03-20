@@ -1,4 +1,3 @@
-using System;
 using UnityEditor;
 using UnityEngine;
 
@@ -13,11 +12,16 @@ namespace MarblePhysics
         private SerializedProperty pointAProp;
         private SerializedProperty pointBProp;
 
-        private float initialLerpValue;
         private static bool play = false;
+        private float sliderValue = .5f;
+
+        private PhysicsPositionOscillator oscillator;
 
         protected virtual void OnEnable()
         {
+            oscillator = target as PhysicsPositionOscillator;
+            sliderValue = .5f;
+            
             targetRigidBodyProp = serializedObject.FindProperty("targetRigidBody");
             floatGeneratorProp = serializedObject.FindProperty("floatGenerator");
             pointAProp = serializedObject.FindProperty("pointA");
@@ -30,7 +34,6 @@ namespace MarblePhysics
                 Rigidbody2D target = targetRigidBodyProp.objectReferenceValue as Rigidbody2D;
                 Vector2 point = MathUtils.ClosestPointOnLine(pointA.position, pointB.position, target.transform.position);
                 target.transform.position = point;
-                initialLerpValue = (Vector2.Distance(point, pointB.position) / Vector2.Distance(pointA.position, pointB.position));
             }
         }
 
@@ -38,13 +41,10 @@ namespace MarblePhysics
         {
             if (AreRequiresValuesSet())
             {
-                Transform pointA = pointAProp.objectReferenceValue as Transform;
-                Transform pointB = pointBProp.objectReferenceValue as Transform;
-                Rigidbody2D target = targetRigidBodyProp.objectReferenceValue as Rigidbody2D;
-                target.transform.position = Vector3.Lerp(pointA.position, pointB.position, initialLerpValue);
+                oscillator.TargetRigidBody.transform.position = Vector3.Lerp(oscillator.PointA.position, oscillator.PointB.position, .5f);
             }
         }
-        
+
 
         private bool AreRequiresValuesSet()
         {
@@ -69,6 +69,13 @@ namespace MarblePhysics
                     SceneView.RepaintAll();
                     Debug.Log("playing...");
                 }
+
+                if (!play)
+                {
+                    sliderValue = EditorGUILayout.Slider("Preview Position", sliderValue, 0f, 1f);
+                    
+                    oscillator.TargetRigidBody.transform.position = Vector3.Lerp(oscillator.PointA.position, oscillator.PointB.position, sliderValue);
+                }
             }
         }
 
@@ -91,7 +98,6 @@ namespace MarblePhysics
                 {
                     Vector2 point = MathUtils.ClosestPointOnLine(pointA.position, pointB.position, targetRigidBody.transform.position);
                     targetRigidBody.transform.position = point;
-                    initialLerpValue = (Vector2.Distance(point, pointB.position) / Vector2.Distance(pointA.position, pointB.position));
                 }
                 
                 bool DrawHandle(Transform target)
