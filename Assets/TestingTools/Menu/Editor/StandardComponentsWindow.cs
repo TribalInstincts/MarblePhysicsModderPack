@@ -40,9 +40,9 @@ namespace MarblePhysics.Modding.StandardComponents
 
         private void DrawTab(string tab)
         {
-            foreach (StandardComponentMetadata standardComponentMetadata in tagToPrefabs[tab])
+            foreach (StandardComponentMetadata metadata in tagToPrefabs[tab])
             {
-                if (GUILayout.Button(new GUIContent(standardComponentMetadata.Name, standardComponentMetadata.Description)))
+                if (GUILayout.Button(new GUIContent(metadata.Name, metadata.Description)))
                 {
                     LevelRunner levelRunner = FindObjectOfType<LevelRunner>();
                     if (levelRunner != null)
@@ -54,27 +54,35 @@ namespace MarblePhysics.Modding.StandardComponents
                         }
                     }
                     
-                    Object instantiatePrefab = null;
+                    Object prefabInstance = null;
                     if (Selection.activeTransform != null)
                     {
-                        instantiatePrefab = PrefabUtility.InstantiatePrefab(standardComponentMetadata.gameObject, Selection.activeTransform);
-                        instantiatePrefab.GetComponent<Transform>().ClearLocal();
+                        prefabInstance = PrefabUtility.InstantiatePrefab(metadata.gameObject, Selection.activeTransform);
+                        prefabInstance.GetComponent<Transform>().ClearLocal();
                     }
                     else
                     {
                         PrefabStage currentPrefabStage = PrefabStageUtility.GetCurrentPrefabStage();
                         if (currentPrefabStage != null)
                         {
-                            instantiatePrefab = PrefabUtility.InstantiatePrefab(standardComponentMetadata.gameObject, currentPrefabStage.prefabContentsRoot.transform);
+                            prefabInstance = PrefabUtility.InstantiatePrefab(metadata.gameObject, currentPrefabStage.prefabContentsRoot.transform);
                         }
                         else
                         {
-                            instantiatePrefab = PrefabUtility.InstantiatePrefab(standardComponentMetadata.gameObject);
+                            prefabInstance = PrefabUtility.InstantiatePrefab(metadata.gameObject);
                         }
                     }
-                    
-                    
-                    Selection.activeObject = instantiatePrefab;
+
+
+                    GameObject gameObject = prefabInstance.GameObject();
+                    PrefabUtility.UnpackPrefabInstance(gameObject, PrefabUnpackMode.OutermostRoot, InteractionMode.UserAction);
+                    gameObject.name = metadata.Name;
+                    if (gameObject.TryGetComponent(out StandardComponentMetadata md))
+                    {
+                        DestroyImmediate(md);
+                    }
+
+                    Selection.activeObject = prefabInstance;
                 }
             }
         }
