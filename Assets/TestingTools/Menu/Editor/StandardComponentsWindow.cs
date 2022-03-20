@@ -1,10 +1,13 @@
 using System.Collections.Generic;
 using System.Linq;
+using MarblePhysics.Modding.Shared.Extensions;
+using MarblePhysics.Modding.Shared.Level;
 using TribalInstincts;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace MarblePhysics.Modding.StandardComponents
 {
@@ -42,10 +45,21 @@ namespace MarblePhysics.Modding.StandardComponents
             {
                 if (GUILayout.Button(new GUIContent(standardComponentMetadata.Name, standardComponentMetadata.Description)))
                 {
+                    LevelRunner levelRunner = FindObjectOfType<LevelRunner>();
+                    if (levelRunner != null)
+                    {
+                        SceneManager.SetActiveScene(levelRunner.gameObject.scene);
+                        if (Selection.activeTransform != null && levelRunner.gameObject.scene != Selection.activeTransform.gameObject.scene)
+                        {
+                            Selection.activeTransform = null;
+                        }
+                    }
+                    
                     Object instantiatePrefab = null;
                     if (Selection.activeTransform != null)
                     {
                         instantiatePrefab = PrefabUtility.InstantiatePrefab(standardComponentMetadata.gameObject, Selection.activeTransform);
+                        instantiatePrefab.GetComponent<Transform>().ClearLocal();
                     }
                     else
                     {
