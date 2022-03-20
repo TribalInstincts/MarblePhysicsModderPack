@@ -47,7 +47,6 @@
      <Compile Include="Assets\_StandardComponents\CollisionHandlers\MarbleCollisionHandler.cs" />
      <Compile Include="Assets\_StandardComponents\Utils\ValueUtilities\Float\OscillatingFloatGenerator.cs" />
      <Compile Include="Assets\_StandardComponents\Sorters\Seats\Seat.cs" />
-     <Compile Include="Assets\_StandardComponents\_Prefabs\Menu\StandardComponentMetadata.cs" />
      <Compile Include="Assets\_StandardComponents\Sorters\Seats\SeatSorter.cs" />
      <Compile Include="Assets\_StandardComponents\SpawnZones\SpawnZone.cs" />
      <Compile Include="Assets\_StandardComponents\Utils\ValueUtilities\AngleVector.cs" />
@@ -73,6 +72,7 @@
      <Compile Include="Assets\_StandardComponents\Sorters\Seats\SeatSet.cs" />
      <Compile Include="Assets\_StandardComponents\SpawnZones\ColliderSpawnZone.cs" />
      <Compile Include="Assets\_StandardComponents\CollisionHandlers\LinearGravityTrigger.cs" />
+     <Compile Include="Assets\_StandardComponents\_Prefabs\Menu\StandardComponentMetadata.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
@@ -342,9 +342,6 @@
      <Reference Include="UnityEditor.UnityConnectModule">
      <HintPath>C:\Program Files\Unity\Hub\Editor\2022.1.0b8\Editor\Data\Managed\UnityEngine\UnityEditor.UnityConnectModule.dll</HintPath>
      </Reference>
-     <Reference Include="MarblePhysicsEditor">
-     <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Assets\Plugins\MarblePhysicsEditor.dll</HintPath>
-     </Reference>
      <Reference Include="Trivial.Mono.Cecil">
      <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Assets\UMod\Plugin\Trivial.Mono.Cecil.dll</HintPath>
      </Reference>
@@ -386,6 +383,9 @@
      </Reference>
      <Reference Include="UMod-ModTools">
      <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Assets\UMod\Plugin\UMod-ModTools.dll</HintPath>
+     </Reference>
+     <Reference Include="MarblePhysicsEditor">
+     <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Assets\Plugins\MarblePhysicsEditor.dll</HintPath>
      </Reference>
      <Reference Include="netstandard">
      <HintPath>C:\Program Files\Unity\Hub\Editor\2022.1.0b8\Editor\Data\NetStandard\ref\2.1.0\netstandard.dll</HintPath>
