@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using MarblePhysics.Modding.Shared.Extensions;
 using MarblePhysics.Modding.Shared.Level;
-using TribalInstincts;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEditor.SceneManagement;
@@ -84,7 +83,6 @@ namespace MarblePhysics.Modding.StandardComponents
         {
             if (Time.realtimeSinceStartup > nextPrefabRefresh || tagToPrefabs == null)
             {
-                Debug.Log("Refreshing Prefabs");
                 nextPrefabRefresh = Time.realtimeSinceStartup + 5f;
                 
                 if (tagToPrefabs == null)

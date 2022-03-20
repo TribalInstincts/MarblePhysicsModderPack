@@ -11,7 +11,7 @@ using UnityEngine;
 using UnityEditor;
 #endif
 
-namespace TribalInstincts
+namespace MarblePhysics.Modding.Test
 {
     /// <summary>
     /// DO NOT USE THIS in your level creation, or anything under the TestTools namespace. They will change without warning.
@@ -26,7 +26,7 @@ namespace TribalInstincts
 
         private LevelRunner levelRunner;
 
-        private void Start()
+        private async void Start()
         {
             if (TryGetValidLevelRunner(out LevelRunner levelRunner))
             {
@@ -37,6 +37,7 @@ namespace TribalInstincts
             {
 #if UNITY_EDITOR
                 EditorApplication.isPlaying = false;
+                Debug.LogError("Please open the scene for the level you are editing before playing.");
 #endif
             }
         }
