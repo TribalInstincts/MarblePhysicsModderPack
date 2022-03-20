@@ -50,8 +50,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Radial Gravity
   Description: Pulls things towards the center
-  Tags:
-  - Gravity
+  Tags: []
 --- !u!114 &400443324589911920
 MonoBehaviour:
   m_ObjectHideFlags: 0

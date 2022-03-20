@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4bc9fc1aa3ea62499c1c69ded5b01f9, type: 3}
+  m_Name: StandardComponentTagManager
+  m_EditorClassIdentifier: 
+  allTag:
+    Name: All
+    Icon: {fileID: 2800000, guid: 5d3cb46004992cc40ba9599d268fe336, type: 3}
+  tags:
+  - Name: Environment
+    Icon: {fileID: 2800000, guid: 7c0a57982c88deb4e93f77a71cc7a837, type: 3}
+  - Name: Trigger
+    Icon: {fileID: 2800000, guid: 63c944b6af9ae6c49820bb3cd4d44397, type: 3}
+  - Name: Motivator
+    Icon: {fileID: 2800000, guid: f1bf43d5483f66c4bbe73798d4e06fd3, type: 3}
+  - Name: Oscillator
+    Icon: {fileID: 2800000, guid: ec1da330944737745ac626eba86a2de0, type: 3}
+  - Name: Gravity
+    Icon: {fileID: 2800000, guid: c660b57c92787d74c8fec1b4b4f371e9, type: 3}

@@ -41,19 +41,20 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Assets\_ModAssets\StandardComponents\Scripts\CollisionHandlers\Editor\LinearGravityTriggerEditor.cs" />
-     <Compile Include="Assets\_ModAssets\StandardComponents\Scripts\CollisionHandlers\Editor\MarbleCollisionHandlerEditor.cs" />
-     <Compile Include="Assets\_ModAssets\StandardComponents\Scripts\Motivators\Editor\PhysicsRotatorEditor.cs" />
-     <Compile Include="Assets\_ModAssets\StandardComponents\Scripts\Motivators\Editor\PhysicsPositionOscillatorEditor.cs" />
-     <Compile Include="Assets\_ModAssets\StandardComponents\Scripts\CollisionHandlers\Editor\TeleportTriggerEditor.cs" />
-     <Compile Include="Assets\_ModAssets\StandardComponents\Scripts\Utils\Editor\VectorHandle.cs" />
-     <Compile Include="Assets\_ModAssets\StandardComponents\Scripts\CollisionHandlers\Editor\ApplyForceTriggerEditor.cs" />
-     <Compile Include="Assets\_ModAssets\StandardComponents\Scripts\CameraControllers\Editor\StaticCameraControllerEditor.cs" />
-     <Compile Include="Assets\_ModAssets\StandardComponents\Scripts\CollisionHandlers\Editor\RadialGravityTriggerEditor.cs" />
+     <Compile Include="Assets\TestingTools\Scripts\Editor\CollisionHandlers\LinearGravityTriggerEditor.cs" />
+     <Compile Include="Assets\TestingTools\Scripts\Editor\CollisionHandlers\MarbleCollisionHandlerEditor.cs" />
+     <Compile Include="Assets\TestingTools\Scripts\Editor\Motivators\PhysicsRotatorEditor.cs" />
+     <Compile Include="Assets\TestingTools\Scripts\Editor\Motivators\PhysicsPositionOscillatorEditor.cs" />
+     <Compile Include="Assets\TestingTools\Scripts\Editor\CollisionHandlers\TeleportTriggerEditor.cs" />
+     <Compile Include="Assets\TestingTools\Scripts\Editor\VectorHandle.cs" />
+     <Compile Include="Assets\TestingTools\Scripts\Editor\CollisionHandlers\ApplyForceTriggerEditor.cs" />
+     <Compile Include="Assets\TestingTools\Scripts\Editor\CameraControllers\StaticCameraControllerEditor.cs" />
+     <Compile Include="Assets\TestingTools\Scripts\Editor\CollisionHandlers\RadialGravityTriggerEditor.cs" />
      <Compile Include="Assets\ModTools\Scripts\Editor\ModToolsMenu.cs" />
      <Compile Include="Assets\TestingTools\Menu\Editor\StandardComponentsWindow.cs" />
      <Compile Include="Assets\TestingTools\Menu\Editor\StandardComponentMetadataEditor.cs" />
      <Compile Include="Assets\TestingTools\Menu\Editor\EditorHelper.cs" />
+     <Compile Include="Assets\TestingTools\Menu\Editor\StandardComponentTagManager.cs" />
      <None Include="Assets\UMod\Resources\Editor\Data\Readme.txt" />
      <Reference Include="UnityEngine">
      <HintPath>C:\Program Files\Unity\Hub\Editor\2022.1.0b8\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>

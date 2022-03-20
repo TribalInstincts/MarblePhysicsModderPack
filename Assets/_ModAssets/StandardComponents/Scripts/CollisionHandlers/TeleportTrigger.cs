@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using MarblePhysics.Modding.Shared.Player;
-using MarblePhysics.Modding.StandardComponents;
 using UnityEngine;
 
 namespace MarblePhysics.Modding.StandardComponents
@@ -11,6 +8,9 @@ namespace MarblePhysics.Modding.StandardComponents
         [SerializeField]
         private Transform teleportTarget = default;
 
+        [SerializeField]
+        private PositionModifier positionModifier = default;
+
         public Transform TeleportTarget => teleportTarget;
 
         [SerializeField]
@@ -18,6 +18,14 @@ namespace MarblePhysics.Modding.StandardComponents
 
         [SerializeField]
         private bool clearTrail = false;
+
+        private bool hasPositionModifier = false;
+
+        protected override void Awake()
+        {
+            base.Awake();
+            hasPositionModifier = positionModifier != null;
+        }
 
         protected override void OnMarbleTriggerEnter(Marble marble)
         {
@@ -41,7 +49,7 @@ namespace MarblePhysics.Modding.StandardComponents
 
         private void Teleport(Marble marble)
         {
-            marble.Teleport(teleportTarget.position, keepVelocity, true, clearTrail);
+            marble.Teleport((hasPositionModifier ? positionModifier.ModifyPosition(teleportTarget.position) : teleportTarget.position), keepVelocity, true, clearTrail);
         }
     }
 }

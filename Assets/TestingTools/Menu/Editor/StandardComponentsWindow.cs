@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using MarblePhysics.Modding.Shared.Extensions;
@@ -7,40 +8,104 @@ using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Object = UnityEngine.Object;
+using Tag = MarblePhysics.Modding.StandardComponentTagManager.Tag;
 
 namespace MarblePhysics.Modding.StandardComponents
 {
     public class StandardComponentsWindow : EditorWindow
     {
         private static readonly string prefabPath = "Assets/_StandardComponents/_Prefabs";
+
+        private int currentTag = default;
+        private int lastTag = 0;
+        private Tag[] tags;
+        private GUIContent[] tagGuiContent;
         
-        private int currentTab = default;
-        private float nextPrefabRefresh = 0;
-        private Dictionary<string, List<StandardComponentMetadata>> tagToPrefabs;
-        private string[] tabs;
+        private Dictionary<Tag, List<StandardComponentMetadata>> tabToPrefabs;
+
+        private StandardComponentTagManager tagManager;
+        private Vector2 scrollPosition = Vector2.zero;
 
         [MenuItem("Window/Standard Components Window")]
-        static void Init()
+        static void OpenWindow()
         {
             // Get existing open window or if none, make a new one:
             StandardComponentsWindow window = (StandardComponentsWindow) GetWindow(typeof(StandardComponentsWindow));
-            window.titleContent.text = "Standard Components";
+            window.Refresh();
+        }
+        
+        public void Refresh()
+        {
+            titleContent.text = "Standard Components";
+            tagManager = StandardComponentTagManager.GetInstance();
+            tabToPrefabs = new Dictionary<Tag, List<StandardComponentMetadata>>();
+            
+            tabToPrefabs.Add(tagManager.AllTag, new List<StandardComponentMetadata>());
+            foreach (Tag tag in tagManager.Tags)
+            {
+                tabToPrefabs[tag] = new List<StandardComponentMetadata>();
+            }
+
+            GetPrefabs();
+            
+            foreach (Tag tag in tabToPrefabs.Keys.ToArray())
+            {
+                if (tabToPrefabs[tag].Count == 0)
+                {
+                    tabToPrefabs.Remove(tag);
+                }
+            }
+
+            tags = tabToPrefabs.Keys.ToArray();
+            tagGuiContent = tags.Select(t => t.GetGUIContent()).ToArray();
+        }
+
+        private void OnEnable()
+        {
+            Refresh();
         }
 
         private void OnGUI()
         {
-            GetPrefabs();
-            if (tabs.Length > 0)
-            {   
-                currentTab = GUILayout.Toolbar(currentTab, tabs);
+            try
+            {
+                GUILayout.BeginHorizontal();
+                
+                for (int i = 0; i < tagGuiContent.Length; i++)
+                {
+                    if (GUILayout.Toggle(currentTag == i, tagGuiContent[i], "Button", GUILayout.Width(35), GUILayout.Height(35)))
+                    {
+                        currentTag = i;
+                    }
+                }
 
-                DrawTab(tabs[currentTab]);
+                if (currentTag != lastTag)
+                {
+                    scrollPosition = Vector2.zero;
+                    lastTag = currentTag;
+                }
+                
+                GUILayout.EndHorizontal();
+
+                DrawTab(tags[currentTag]);
+            }
+            catch
+            {
+                Refresh();
+            }
+            
+            GUILayout.FlexibleSpace();
+            if (GUILayout.Button("Refresh"))
+            {
+                Refresh();
             }
         }
 
-        private void DrawTab(string tab)
+        private void DrawTab(Tag tag)
         {
-            foreach (StandardComponentMetadata metadata in tagToPrefabs[tab])
+            scrollPosition = GUILayout.BeginScrollView(scrollPosition);
+            foreach (StandardComponentMetadata metadata in tabToPrefabs[tag])
             {
                 if (GUILayout.Button(new GUIContent(metadata.Name, metadata.Description)))
                 {
@@ -53,7 +118,7 @@ namespace MarblePhysics.Modding.StandardComponents
                             Selection.activeTransform = null;
                         }
                     }
-                    
+
                     Object prefabInstance = null;
                     if (Selection.activeTransform != null)
                     {
@@ -85,48 +150,32 @@ namespace MarblePhysics.Modding.StandardComponents
                     Selection.activeObject = prefabInstance;
                 }
             }
+            GUILayout.EndScrollView();
         }
 
         private void GetPrefabs()
         {
-            if (Time.realtimeSinceStartup > nextPrefabRefresh || tagToPrefabs == null)
+            string[] guids = AssetDatabase.FindAssets("t:Prefab");
+            foreach (string guid in guids)
             {
-                nextPrefabRefresh = Time.realtimeSinceStartup + 5f;
-                
-                if (tagToPrefabs == null)
+                StandardComponentMetadata metadata = AssetDatabase.LoadAssetAtPath<StandardComponentMetadata>(AssetDatabase.GUIDToAssetPath(guid));
+                if (metadata != null)
                 {
-                    tagToPrefabs = new Dictionary<string, List<StandardComponentMetadata>>();
-                }
-                else
-                {
-                    tagToPrefabs.Clear();
-                }
-
-                string[] guids = AssetDatabase.FindAssets("t:Prefab");
-                foreach (string guid in guids)
-                {
-                    StandardComponentMetadata metadata = AssetDatabase.LoadAssetAtPath<StandardComponentMetadata>(AssetDatabase.GUIDToAssetPath(guid));
-                    if (metadata != null)
+                    AddToTag("All", metadata);
+                    foreach (string prefabDataTag in metadata.Tags)
                     {
-                        AddToTag("All", metadata);
-                        foreach (string prefabDataTag in metadata.Tags)
-                        {
-                            AddToTag(prefabDataTag, metadata);
-                        }
+                        AddToTag(prefabDataTag, metadata);
                     }
                 }
-
-                tabs = tagToPrefabs.Keys.ToArray();
             }
 
             void AddToTag(string tag, StandardComponentMetadata metadata)
             {
-                if (!tagToPrefabs.TryGetValue(tag, out List<StandardComponentMetadata> datas))
+                if (tabToPrefabs.TryGetValue(new Tag(){Name = tag}, out List<StandardComponentMetadata> datas))
                 {
-                    datas = new List<StandardComponentMetadata>();
-                    tagToPrefabs[tag] = datas;
+                    datas.Add(metadata);
                 }
-                datas.Add(metadata);
+
             }
         }
     }

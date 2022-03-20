@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace MarblePhysics.Modding.StandardComponents
@@ -7,7 +8,7 @@ namespace MarblePhysics.Modding.StandardComponents
         public string Name = default;
         [TextArea(1, 10)]
         public string Description = default;
-        public string[] Tags = default;
+        public List<string> Tags = default;
 
         private void Awake()
         {

@@ -257,9 +257,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Rotation Oscillator
   Description: Rotates a rigidbody
-  Tags:
-  - Motivator
-  - Oscillator
+  Tags: []
 --- !u!114 &8001540573295294462
 MonoBehaviour:
   m_ObjectHideFlags: 0
