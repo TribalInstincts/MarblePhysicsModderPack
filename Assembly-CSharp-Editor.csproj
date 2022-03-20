@@ -41,18 +41,18 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Assets\_StandardComponents\CollisionHandlers\Editor\LinearGravityTriggerEditor.cs" />
-     <Compile Include="Assets\_StandardComponents\CollisionHandlers\Editor\MarbleCollisionHandlerEditor.cs" />
-     <Compile Include="Assets\_StandardComponents\Motivators\Editor\PhysicsRotatorEditor.cs" />
-     <Compile Include="Assets\_StandardComponents\Motivators\Editor\PhysicsPositionOscillatorEditor.cs" />
-     <Compile Include="Assets\_StandardComponents\CollisionHandlers\Editor\TeleportTriggerEditor.cs" />
-     <Compile Include="Assets\_StandardComponents\Utils\Editor\VectorHandle.cs" />
-     <Compile Include="Assets\_StandardComponents\CollisionHandlers\Editor\ApplyForceTriggerEditor.cs" />
-     <Compile Include="Assets\_StandardComponents\CameraControllers\Editor\StaticCameraControllerEditor.cs" />
-     <Compile Include="Assets\_StandardComponents\CollisionHandlers\Editor\RadialGravityTriggerEditor.cs" />
+     <Compile Include="Assets\_ModAssets\Scripts\_StandardComponents\CollisionHandlers\Editor\LinearGravityTriggerEditor.cs" />
+     <Compile Include="Assets\_ModAssets\Scripts\_StandardComponents\CollisionHandlers\Editor\MarbleCollisionHandlerEditor.cs" />
+     <Compile Include="Assets\_ModAssets\Scripts\_StandardComponents\Motivators\Editor\PhysicsRotatorEditor.cs" />
+     <Compile Include="Assets\_ModAssets\Scripts\_StandardComponents\Motivators\Editor\PhysicsPositionOscillatorEditor.cs" />
+     <Compile Include="Assets\_ModAssets\Scripts\_StandardComponents\CollisionHandlers\Editor\TeleportTriggerEditor.cs" />
+     <Compile Include="Assets\_ModAssets\Scripts\_StandardComponents\Utils\Editor\VectorHandle.cs" />
+     <Compile Include="Assets\_ModAssets\Scripts\_StandardComponents\CollisionHandlers\Editor\ApplyForceTriggerEditor.cs" />
+     <Compile Include="Assets\_ModAssets\Scripts\_StandardComponents\CameraControllers\Editor\StaticCameraControllerEditor.cs" />
+     <Compile Include="Assets\_ModAssets\Scripts\_StandardComponents\CollisionHandlers\Editor\RadialGravityTriggerEditor.cs" />
      <Compile Include="Assets\ModTools\Scripts\Editor\ModToolsMenu.cs" />
-     <Compile Include="Assets\_StandardComponents\_Prefabs\Menu\Editor\StandardComponentsWindow.cs" />
-     <Compile Include="Assets\_StandardComponents\_Prefabs\Menu\Editor\StandardComponentMetadataEditor.cs" />
+     <Compile Include="Assets\TestingTools\Menu\Editor\StandardComponentsWindow.cs" />
+     <Compile Include="Assets\TestingTools\Menu\Editor\StandardComponentMetadataEditor.cs" />
      <None Include="Assets\UMod\Resources\Editor\Data\Readme.txt" />
      <Reference Include="UnityEngine">
      <HintPath>C:\Program Files\Unity\Hub\Editor\2022.1.0b8\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
