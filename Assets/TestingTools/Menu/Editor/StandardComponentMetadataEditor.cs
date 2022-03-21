@@ -67,7 +67,7 @@ namespace MarblePhysics.Modding.StandardComponents
                     {
                         Undo.RecordObject(metadata, "Add new tag");
                         metadata.Tags.Add(newTag);
-                        
+                        EditorUtility.SetDirty(metadata.gameObject);
                     }
                     addTagIndex = 0;
                 }

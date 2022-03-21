@@ -50,7 +50,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Teleporter
   Description: Teleports a player to a configurable position on contact
-  Tags: []
+  Tags:
+  - Trigger
 --- !u!114 &375974481078552802
 MonoBehaviour:
   m_ObjectHideFlags: 0
