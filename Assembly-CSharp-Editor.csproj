@@ -41,20 +41,21 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
+     <Compile Include="Assets\ModTools\Scripts\Editor\ModToolsMenu.cs" />
      <Compile Include="Assets\TestingTools\Scripts\Editor\CollisionHandlers\LinearGravityTriggerEditor.cs" />
      <Compile Include="Assets\TestingTools\Scripts\Editor\CollisionHandlers\MarbleCollisionHandlerEditor.cs" />
+     <Compile Include="Assets\TestingTools\Menu\Editor\StandardComponentsWindow.cs" />
      <Compile Include="Assets\TestingTools\Scripts\Editor\Motivators\PhysicsRotatorEditor.cs" />
-     <Compile Include="Assets\TestingTools\Scripts\Editor\Motivators\PhysicsPositionOscillatorEditor.cs" />
+     <Compile Include="Assets\TestingTools\Menu\Editor\EditorHelper.cs" />
      <Compile Include="Assets\TestingTools\Scripts\Editor\CollisionHandlers\TeleportTriggerEditor.cs" />
      <Compile Include="Assets\TestingTools\Scripts\Editor\VectorHandle.cs" />
      <Compile Include="Assets\TestingTools\Scripts\Editor\CollisionHandlers\ApplyForceTriggerEditor.cs" />
+     <Compile Include="Assets\TestingTools\Scripts\Editor\EnvironmentShaperEditor.cs" />
+     <Compile Include="Assets\TestingTools\Scripts\Editor\Motivators\PhysicsPositionOscillatorEditor.cs" />
      <Compile Include="Assets\TestingTools\Scripts\Editor\CameraControllers\StaticCameraControllerEditor.cs" />
-     <Compile Include="Assets\TestingTools\Scripts\Editor\CollisionHandlers\RadialGravityTriggerEditor.cs" />
-     <Compile Include="Assets\ModTools\Scripts\Editor\ModToolsMenu.cs" />
-     <Compile Include="Assets\TestingTools\Menu\Editor\StandardComponentsWindow.cs" />
      <Compile Include="Assets\TestingTools\Menu\Editor\StandardComponentMetadataEditor.cs" />
-     <Compile Include="Assets\TestingTools\Menu\Editor\EditorHelper.cs" />
      <Compile Include="Assets\TestingTools\Menu\Editor\StandardComponentTagManager.cs" />
+     <Compile Include="Assets\TestingTools\Scripts\Editor\CollisionHandlers\RadialGravityTriggerEditor.cs" />
      <None Include="Assets\UMod\Resources\Editor\Data\Readme.txt" />
      <Reference Include="UnityEngine">
      <HintPath>C:\Program Files\Unity\Hub\Editor\2022.1.0b8\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
@@ -311,6 +312,9 @@
      <Reference Include="UnityEditor.WindowsStandalone.Extensions">
      <HintPath>C:\Program Files\Unity\Hub\Editor\2022.1.0b8\Editor\Data\PlaybackEngines\WindowsStandaloneSupport\UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
      </Reference>
+     <Reference Include="MarblePhysicsEditor">
+     <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Assets\Plugins\MarblePhysicsEditor.dll</HintPath>
+     </Reference>
      <Reference Include="UMod-Exporter">
      <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Assets\UMod\Plugin\Editor\UMod-Exporter.dll</HintPath>
      </Reference>
@@ -322,6 +326,9 @@
      </Reference>
      <Reference Include="Trivial.CodeSecurity">
      <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Assets\UMod\Plugin\Trivial.CodeSecurity.dll</HintPath>
+     </Reference>
+     <Reference Include="MarblePhysics3P">
+     <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Assets\Plugins\MarblePhysics3P.dll</HintPath>
      </Reference>
      <Reference Include="Unity.Plastic.Antlr3.Runtime">
      <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Library\PackageCache\com.unity.collab-proxy@1.15.12\Lib\Editor\PlasticSCM\Unity.Plastic.Antlr3.Runtime.dll</HintPath>
@@ -377,17 +384,11 @@
      <Reference Include="Unity.VisualScripting.Antlr3.Runtime">
      <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Library\PackageCache\com.unity.visualscripting@1.7.6\Runtime\VisualScripting.Flow\Dependencies\NCalc\Unity.VisualScripting.Antlr3.Runtime.dll</HintPath>
      </Reference>
-     <Reference Include="clipper_library">
-     <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Library\PackageCache\com.unity.cinemachine@2.8.4\Runtime\ThirdParty\clipper_library.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.Burst.Cecil.Rocks">
-     <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Library\PackageCache\com.unity.burst@1.6.0\Unity.Burst.CodeGen\Unity.Burst.Cecil.Rocks.dll</HintPath>
-     </Reference>
      <Reference Include="UMod-ModTools">
      <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Assets\UMod\Plugin\UMod-ModTools.dll</HintPath>
      </Reference>
-     <Reference Include="MarblePhysicsEditor">
-     <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Assets\Plugins\MarblePhysicsEditor.dll</HintPath>
+     <Reference Include="Unity.Burst.Cecil.Rocks">
+     <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Library\PackageCache\com.unity.burst@1.6.0\Unity.Burst.CodeGen\Unity.Burst.Cecil.Rocks.dll</HintPath>
      </Reference>
      <Reference Include="nunit.framework">
      <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Library\PackageCache\com.unity.ext.nunit@1.0.6\net35\unity-custom\nunit.framework.dll</HintPath>
@@ -992,11 +993,17 @@
      <Reference Include="netstandard">
      <HintPath>C:\Program Files\Unity\Hub\Editor\2022.1.0b8\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\netstandard.dll</HintPath>
      </Reference>
+     <Reference Include="UnityEngine.TestRunner">
+     <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Library\ScriptAssemblies\UnityEngine.TestRunner.dll</HintPath>
+     </Reference>
      <Reference Include="UnityEditor.TestRunner">
      <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Library\ScriptAssemblies\UnityEditor.TestRunner.dll</HintPath>
      </Reference>
-     <Reference Include="UnityEngine.TestRunner">
-     <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Library\ScriptAssemblies\UnityEngine.TestRunner.dll</HintPath>
+     <Reference Include="Unity.VisualScripting.Flow.Editor">
+     <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Library\ScriptAssemblies\Unity.VisualScripting.Flow.Editor.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.2D.Tilemap.Extras">
+     <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Library\ScriptAssemblies\Unity.2D.Tilemap.Extras.dll</HintPath>
      </Reference>
      <Reference Include="Unity.InternalAPIEngineBridge.001">
      <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Library\ScriptAssemblies\Unity.InternalAPIEngineBridge.001.dll</HintPath>
@@ -1010,14 +1017,38 @@
      <Reference Include="Unity.RenderPipelines.Universal.Shaders">
      <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Shaders.dll</HintPath>
      </Reference>
+     <Reference Include="Unity.2D.Animation.Editor">
+     <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Library\ScriptAssemblies\Unity.2D.Animation.Editor.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.RenderPipelines.Universal.Runtime">
+     <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Runtime.dll</HintPath>
+     </Reference>
      <Reference Include="PsdPlugin">
      <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Library\ScriptAssemblies\PsdPlugin.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.2D.Tilemap.Editor">
+     <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Library\ScriptAssemblies\Unity.2D.Tilemap.Editor.dll</HintPath>
      </Reference>
      <Reference Include="Unity.TextMeshPro.Editor">
      <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll</HintPath>
      </Reference>
+     <Reference Include="Unity.VisualStudio.Editor">
+     <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Library\ScriptAssemblies\Unity.VisualStudio.Editor.dll</HintPath>
+     </Reference>
+     <Reference Include="PPv2URPConverters">
+     <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Library\ScriptAssemblies\PPv2URPConverters.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.VisualScripting.Core.Editor">
+     <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Library\ScriptAssemblies\Unity.VisualScripting.Core.Editor.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.TextMeshPro">
+     <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Library\ScriptAssemblies\Unity.TextMeshPro.dll</HintPath>
+     </Reference>
      <Reference Include="Unity.VisualScripting.State.Editor">
      <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Library\ScriptAssemblies\Unity.VisualScripting.State.Editor.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.Burst.Editor">
+     <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Library\ScriptAssemblies\Unity.Burst.Editor.dll</HintPath>
      </Reference>
      <Reference Include="Unity.Searcher.Editor">
      <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Library\ScriptAssemblies\Unity.Searcher.Editor.dll</HintPath>
@@ -1025,11 +1056,23 @@
      <Reference Include="Unity.2D.IK.Editor">
      <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Library\ScriptAssemblies\Unity.2D.IK.Editor.dll</HintPath>
      </Reference>
+     <Reference Include="Unity.2D.Sprite.Editor">
+     <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Library\ScriptAssemblies\Unity.2D.Sprite.Editor.dll</HintPath>
+     </Reference>
      <Reference Include="Unity.VisualScripting.SettingsProvider.Editor">
      <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Library\ScriptAssemblies\Unity.VisualScripting.SettingsProvider.Editor.dll</HintPath>
      </Reference>
+     <Reference Include="Unity.VisualScripting.Flow">
+     <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Library\ScriptAssemblies\Unity.VisualScripting.Flow.dll</HintPath>
+     </Reference>
      <Reference Include="UnityEditor.UI">
      <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Library\ScriptAssemblies\UnityEditor.UI.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.PlasticSCM.Editor">
+     <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.2D.Tilemap.Extras.Editor">
+     <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Library\ScriptAssemblies\Unity.2D.Tilemap.Extras.Editor.dll</HintPath>
      </Reference>
      <Reference Include="Unity.Rider.Editor">
      <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Library\ScriptAssemblies\Unity.Rider.Editor.dll</HintPath>
@@ -1040,86 +1083,23 @@
      <Reference Include="UnityEngine.UI">
      <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Library\ScriptAssemblies\UnityEngine.UI.dll</HintPath>
      </Reference>
-     <Reference Include="Unity.2D.IK.Runtime">
-     <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Library\ScriptAssemblies\Unity.2D.IK.Runtime.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.ShaderGraph.Editor">
-     <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Library\ScriptAssemblies\Unity.ShaderGraph.Editor.dll</HintPath>
-     </Reference>
-     <Reference Include="Cinemachine">
-     <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Library\ScriptAssemblies\Cinemachine.dll</HintPath>
-     </Reference>
-     <Reference Include="com.unity.cinemachine.editor">
-     <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Library\ScriptAssemblies\com.unity.cinemachine.editor.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.RenderPipeline.Universal.ShaderLibrary">
-     <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Library\ScriptAssemblies\Unity.RenderPipeline.Universal.ShaderLibrary.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.Mathematics.Editor">
-     <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Library\ScriptAssemblies\Unity.Mathematics.Editor.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.2D.Common.Editor">
-     <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Library\ScriptAssemblies\Unity.2D.Common.Editor.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.VisualScripting.Flow.Editor">
-     <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Library\ScriptAssemblies\Unity.VisualScripting.Flow.Editor.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.2D.Tilemap.Extras">
-     <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Library\ScriptAssemblies\Unity.2D.Tilemap.Extras.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.2D.Animation.Editor">
-     <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Library\ScriptAssemblies\Unity.2D.Animation.Editor.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.2D.Tilemap.Editor">
-     <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Library\ScriptAssemblies\Unity.2D.Tilemap.Editor.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.RenderPipelines.Universal.Runtime">
-     <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Runtime.dll</HintPath>
-     </Reference>
-     <Reference Include="PPv2URPConverters">
-     <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Library\ScriptAssemblies\PPv2URPConverters.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.VisualStudio.Editor">
-     <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Library\ScriptAssemblies\Unity.VisualStudio.Editor.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.Timeline">
-     <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Library\ScriptAssemblies\Unity.Timeline.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.VisualScripting.Core.Editor">
-     <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Library\ScriptAssemblies\Unity.VisualScripting.Core.Editor.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.TextMeshPro">
-     <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Library\ScriptAssemblies\Unity.TextMeshPro.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.Burst.Editor">
-     <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Library\ScriptAssemblies\Unity.Burst.Editor.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.2D.Sprite.Editor">
-     <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Library\ScriptAssemblies\Unity.2D.Sprite.Editor.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.2D.Psdimporter.Editor">
-     <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Library\ScriptAssemblies\Unity.2D.Psdimporter.Editor.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.InternalAPIEditorBridge.001">
-     <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Library\ScriptAssemblies\Unity.InternalAPIEditorBridge.001.dll</HintPath>
-     </Reference>
      <Reference Include="Unity.RenderPipelines.Core.Runtime">
      <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Library\ScriptAssemblies\Unity.RenderPipelines.Core.Runtime.dll</HintPath>
      </Reference>
-     <Reference Include="Unity.VisualScripting.Flow">
-     <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Library\ScriptAssemblies\Unity.VisualScripting.Flow.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.PlasticSCM.Editor">
-     <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.2D.Tilemap.Extras.Editor">
-     <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Library\ScriptAssemblies\Unity.2D.Tilemap.Extras.Editor.dll</HintPath>
+     <Reference Include="Unity.2D.Psdimporter.Editor">
+     <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Library\ScriptAssemblies\Unity.2D.Psdimporter.Editor.dll</HintPath>
      </Reference>
      <Reference Include="Unity.VisualScripting.Core">
      <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Library\ScriptAssemblies\Unity.VisualScripting.Core.dll</HintPath>
      </Reference>
      <Reference Include="Unity.Mathematics">
      <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Library\ScriptAssemblies\Unity.Mathematics.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.2D.IK.Runtime">
+     <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Library\ScriptAssemblies\Unity.2D.IK.Runtime.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.ShaderGraph.Editor">
+     <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Library\ScriptAssemblies\Unity.ShaderGraph.Editor.dll</HintPath>
      </Reference>
      <Reference Include="Unity.Burst">
      <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Library\ScriptAssemblies\Unity.Burst.dll</HintPath>
@@ -1130,17 +1110,23 @@
      <Reference Include="Unity.VisualScripting.Shared.Editor">
      <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Library\ScriptAssemblies\Unity.VisualScripting.Shared.Editor.dll</HintPath>
      </Reference>
+     <Reference Include="Unity.InternalAPIEditorBridge.001">
+     <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Library\ScriptAssemblies\Unity.InternalAPIEditorBridge.001.dll</HintPath>
+     </Reference>
      <Reference Include="Unity.2D.Animation.Runtime">
      <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Library\ScriptAssemblies\Unity.2D.Animation.Runtime.dll</HintPath>
      </Reference>
      <Reference Include="Unity.2D.PixelPerfect.Editor">
      <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Library\ScriptAssemblies\Unity.2D.PixelPerfect.Editor.dll</HintPath>
      </Reference>
-     <Reference Include="Unity.Timeline.Editor">
-     <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Library\ScriptAssemblies\Unity.Timeline.Editor.dll</HintPath>
+     <Reference Include="Unity.RenderPipeline.Universal.ShaderLibrary">
+     <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Library\ScriptAssemblies\Unity.RenderPipeline.Universal.ShaderLibrary.dll</HintPath>
      </Reference>
      <Reference Include="Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary">
      <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Library\ScriptAssemblies\Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.Mathematics.Editor">
+     <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Library\ScriptAssemblies\Unity.Mathematics.Editor.dll</HintPath>
      </Reference>
      <Reference Include="Unity.2D.Common.Runtime">
      <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Library\ScriptAssemblies\Unity.2D.Common.Runtime.dll</HintPath>
@@ -1150,6 +1136,9 @@
      </Reference>
      <Reference Include="Unity.2D.Common.Path.Editor">
      <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Library\ScriptAssemblies\Unity.2D.Common.Path.Editor.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.2D.Common.Editor">
+     <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Library\ScriptAssemblies\Unity.2D.Common.Editor.dll</HintPath>
      </Reference>
      <Reference Include="Unity.RenderPipelines.Core.Editor">
      <HintPath>E:\Projects\Unity\MarblePhysicsModderPack\MarblePhysicsModderPack\Library\ScriptAssemblies\Unity.RenderPipelines.Core.Editor.dll</HintPath>
