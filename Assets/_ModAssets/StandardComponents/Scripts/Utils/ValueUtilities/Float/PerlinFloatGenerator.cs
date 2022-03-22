@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace MarblePhysics
+namespace MarblePhysics.Modding
 {
     /// <summary>
     /// Smoothly moves randomly between your min and max value while generally staying near the average of the two 

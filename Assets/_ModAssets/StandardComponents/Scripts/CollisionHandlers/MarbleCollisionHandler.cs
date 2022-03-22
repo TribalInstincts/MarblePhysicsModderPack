@@ -1,9 +1,8 @@
 using System;
 using MarblePhysics.Modding.Shared.Player;
-using MarblePhysics.Modding.StandardComponents.Filters;
 using UnityEngine;
 
-namespace MarblePhysics.Modding.StandardComponents
+namespace MarblePhysics.Modding
 {
     /// <summary>
     /// Convenience class to avoid some boiler plate getComponent checks. Works for 

@@ -2,7 +2,7 @@ using System;
 using UnityEditor;
 using UnityEngine;
 
-namespace MarblePhysics.Modding
+namespace MarblePhysics.Modding.Test
 {
     
     [CreateAssetMenu(fileName = "StandardComponentTagManager", menuName = "MarblePhysics/Util/StandardComponentTagManager")]

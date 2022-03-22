@@ -1,7 +1,8 @@
 using MarblePhysics.Modding.Shared.Player;
+using MarblePhysics.Modding;
 using UnityEngine;
 
-namespace MarblePhysics.Modding.StandardComponents
+namespace MarblePhysics.Modding
 {
     public class ApplyForceTrigger : MarbleCollisionHandler
     {

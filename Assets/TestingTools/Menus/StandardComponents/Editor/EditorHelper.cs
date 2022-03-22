@@ -1,11 +1,10 @@
 using System.Linq;
-using MarblePhysics.Modding.Test;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace MarblePhysics.Modding.Testing
+namespace MarblePhysics.Modding.Test
 {
     [InitializeOnLoad]
     public static class EditorHelper

@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.U2D;
 using UnityEngine.UIElements;
 
-namespace MarblePhysics.Modding
+namespace MarblePhysics.Modding.Test
 {
     [Overlay(typeof(SceneView), "MarblePhysics/Alignment Toolbar")]
     [Icon(EditorIcon.Paths.icon_align_bottom)]
@@ -190,7 +190,8 @@ namespace MarblePhysics.Modding
                 Direction.Up => Vector2.up,
                 Direction.Down => Vector2.down,
                 Direction.Left => Vector2.left,
-                Direction.Right => Vector2.right
+                Direction.Right => Vector2.right,
+                _ => throw new ArgumentOutOfRangeException(nameof(direction), direction, null)
             };
         }
 
@@ -201,7 +202,8 @@ namespace MarblePhysics.Modding
                 Direction.Up => Direction.Down,
                 Direction.Down => Direction.Up,
                 Direction.Left => Direction.Right,
-                Direction.Right => Direction.Left
+                Direction.Right => Direction.Left,
+                _ => throw new ArgumentOutOfRangeException(nameof(direction), direction, null)
             };
         }
 

@@ -26,7 +26,7 @@ namespace MarblePhysics.Modding.Test
 
         private LevelRunner levelRunner;
 
-        private async void Start()
+        private void Start()
         {
             if (TryGetValidLevelRunner(out LevelRunner levelRunner))
             {

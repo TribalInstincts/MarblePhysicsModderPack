@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using MarblePhysics.Modding.Shared.Player;
 using UnityEngine;
 
-namespace MarblePhysics.Modding.StandardComponents.Filters
+namespace MarblePhysics.Modding
 {
     /// <summary>
     /// Checks if the set time has passed since the last CheckFilter call was made.

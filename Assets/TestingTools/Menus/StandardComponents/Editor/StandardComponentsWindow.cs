@@ -9,14 +9,12 @@ using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Object = UnityEngine.Object;
-using Tag = MarblePhysics.Modding.StandardComponentTagManager.Tag;
+using Tag = MarblePhysics.Modding.Test.StandardComponentTagManager.Tag;
 
-namespace MarblePhysics.Modding.StandardComponents
+namespace MarblePhysics.Modding.Test
 {
     public class StandardComponentsWindow : EditorWindow
     {
-        private static readonly string prefabPath = "Assets/_StandardComponents/_Prefabs";
-
         private int currentTag = default;
         private int lastTag = 0;
         private Tag[] tags;

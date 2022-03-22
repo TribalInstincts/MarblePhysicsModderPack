@@ -1,7 +1,7 @@
 using MarblePhysics.Modding.Shared.Player;
 using UnityEngine;
 
-namespace MarblePhysics
+namespace MarblePhysics.Modding
 {
     public abstract class SpawnZone : MonoBehaviour
     {

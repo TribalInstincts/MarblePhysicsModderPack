@@ -61,7 +61,7 @@
      <Compile Include="Assets\_ModAssets\StandardComponents\Scripts\Utils\ValueUtilities\Float\CurveFloatGenerator.cs" />
      <Compile Include="Assets\_ModAssets\StandardComponents\Scripts\Sorters\Seats\SeatSorter.cs" />
      <Compile Include="Assets\_ModAssets\StandardComponents\Scripts\SpawnZones\SpawnZone.cs" />
-     <Compile Include="Assets\TestingTools\Scripts\EnvironmentShaper.cs" />
+     <Compile Include="Assets\_ModAssets\StandardComponents\Scripts\WorldGen\EnvironmentShaper.cs" />
      <Compile Include="Assets\_ModAssets\StandardComponents\Scripts\Utils\ValueUtilities\AngleVector.cs" />
      <Compile Include="Assets\_ModAssets\StandardComponents\Scripts\CollisionHandlers\ApplyForceTrigger.cs" />
      <Compile Include="Assets\_ModAssets\StandardComponents\Scripts\CollisionHandlers\TeleportTrigger.cs" />

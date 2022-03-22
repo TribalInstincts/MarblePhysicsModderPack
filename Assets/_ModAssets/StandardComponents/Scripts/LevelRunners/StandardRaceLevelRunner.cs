@@ -4,10 +4,9 @@ using System.Linq;
 using MarblePhysics.Modding.Shared;
 using MarblePhysics.Modding.Shared.Level;
 using MarblePhysics.Modding.Shared.Player;
-using MarblePhysics.Modding.StandardComponents;
 using UnityEngine;
 
-namespace MarblePhysics
+namespace MarblePhysics.Modding
 {
     public class StandardRaceLevelRunner : LevelRunner
     {

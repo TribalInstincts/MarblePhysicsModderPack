@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace MarblePhysics.Modding.StandardComponents
+namespace MarblePhysics.Modding
 {
     public class DoNotRotate : MonoBehaviour
     {

@@ -2,7 +2,7 @@ using MarblePhysics.Modding.Shared;
 using MarblePhysics.Modding.Shared.Player;
 using UnityEngine;
 
-namespace MarblePhysics.Modding.StandardComponents
+namespace MarblePhysics.Modding
 {
     public class Seat : MonoBehaviour
     {

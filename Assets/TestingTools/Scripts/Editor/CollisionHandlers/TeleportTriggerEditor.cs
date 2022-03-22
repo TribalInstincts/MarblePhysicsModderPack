@@ -3,7 +3,7 @@ using System.Text;
 using UnityEditor;
 using UnityEngine;
 
-namespace MarblePhysics.Modding.StandardComponents
+namespace MarblePhysics.Modding.Test
 {
     [CustomEditor(typeof(TeleportTrigger))]
     public class TeleportTriggerEditor : MarbleCollisionHandlerEditor

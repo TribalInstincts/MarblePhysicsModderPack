@@ -1,11 +1,10 @@
-using System.Diagnostics.Eventing.Reader;
 using System.Text;
 using MarblePhysics.Modding.Shared;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 
-namespace MarblePhysics.Modding.StandardComponents
+namespace MarblePhysics.Modding.Test
 {
     [CustomEditor(typeof(MarbleCollisionHandler), true)]
     public class MarbleCollisionHandlerEditor : Editor

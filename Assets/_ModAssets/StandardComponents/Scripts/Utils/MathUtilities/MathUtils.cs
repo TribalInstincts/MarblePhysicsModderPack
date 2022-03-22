@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace MarblePhysics
+namespace MarblePhysics.Modding
 {
     public static class MathUtils
     {

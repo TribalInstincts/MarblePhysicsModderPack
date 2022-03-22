@@ -1,5 +1,5 @@
 //This class is auto-generated, do not modify (EditorIcons.cs)
-namespace MarblePhysics.Modding
+namespace MarblePhysics.Modding.Test
 {
     public partial class EditorIcon
     {

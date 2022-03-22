@@ -1,7 +1,7 @@
 using MarblePhysics.Modding.Shared;
 using UnityEngine;
 
-namespace MarblePhysics
+namespace MarblePhysics.Modding
 {
     public class StaticCameraController : CameraController
     {

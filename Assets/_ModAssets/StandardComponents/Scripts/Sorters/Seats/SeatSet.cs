@@ -1,11 +1,10 @@
 using System;
 using System.Linq;
 using MarblePhysics.Modding.Shared.Player;
-using MarblePhysics.Modding.StandardComponents.Filters;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace MarblePhysics.Modding.StandardComponents
+namespace MarblePhysics.Modding
 {
     [Serializable]
     public class SeatSetUnityEvent : UnityEvent<SeatSet> {

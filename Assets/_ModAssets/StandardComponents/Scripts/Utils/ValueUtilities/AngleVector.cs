@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace MarblePhysics.Modding.StandardComponents
+namespace MarblePhysics.Modding
 {
     [Serializable]
     public class AngleVector

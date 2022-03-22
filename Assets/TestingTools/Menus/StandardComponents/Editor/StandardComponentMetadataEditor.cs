@@ -6,7 +6,7 @@ using UnityEditor;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace MarblePhysics.Modding.StandardComponents
+namespace MarblePhysics.Modding.Test
 {
     [CustomEditor(typeof(StandardComponentMetadata))]
     public class StandardComponentMetadataEditor : Editor

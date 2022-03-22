@@ -6,7 +6,7 @@ using MarblePhysics.Modding.Shared.Extensions;
 using MarblePhysics.Modding.Shared.Player;
 using UnityEngine;
 
-namespace MarblePhysics
+namespace MarblePhysics.Modding
 {
     public class ColliderSpawnZone : SpawnZone
     {
@@ -18,7 +18,7 @@ namespace MarblePhysics
         }
 
         [SerializeField]
-        private Collider2D collider2D = default;
+        private new Collider2D collider2D = default;
 
         [SerializeField]
         private SpawnTreatment spawnTreatment = default;
@@ -27,9 +27,6 @@ namespace MarblePhysics
         private Vector3 nextPosition;
         private List<Collider2D> overlapBoxResults;
 
-        private bool isInitialized = false;
-        
-        
         public override void PlaceMarbles(params Marble[] marbles)
         {
             switch (spawnTreatment)
@@ -39,16 +36,17 @@ namespace MarblePhysics
                     {
                         marble.Teleport(GetPositionWithinBounds(), false, true, true);
                     }
+
                     break;
                 case SpawnTreatment.Line:
-                    BoxCollider2D boxCollider2D = (BoxCollider2D)collider2D;
+                    BoxCollider2D boxCollider2D = (BoxCollider2D) collider2D;
                     ContactFilter2D filter = new()
                     {
                         useLayerMask = false
                     };
-                    
+
                     boxCollider2D.OverlapCollider(filter, overlapBoxResults);
-                
+
                     float maxY = -.5f;
                     foreach (Collider2D overlapBoxResult in overlapBoxResults)
                     {
@@ -57,13 +55,15 @@ namespace MarblePhysics
                             maxY = Mathf.Max(maxY, transform.InverseTransformPoint(collidingPlayer.transform.position).y);
                         }
                     }
+
                     nextPosition = transform.TransformPoint(new Vector2(0, maxY));
-                    
+
                     foreach (Marble marble in marbles)
                     {
                         nextPosition += collider2D.transform.up * marble.Size.y;
                         marble.Teleport(nextPosition, false, true, true);
                     }
+
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(spawnTreatment.ToString());
@@ -79,8 +79,8 @@ namespace MarblePhysics
         {
             overlapBoxResults = new List<Collider2D>(300);
         }
-        
-        
+
+
         private Vector2 GetPositionWithinBounds()
         {
             switch (collider2D)
@@ -90,7 +90,7 @@ namespace MarblePhysics
                 case CircleCollider2D circle:
                     return circle.RandomPositionWithinBounds();
                 default:
-                
+
                     Debug.LogError("Unhandled collider type: " + collider2D.GetType());
                     return transform.position;
             }

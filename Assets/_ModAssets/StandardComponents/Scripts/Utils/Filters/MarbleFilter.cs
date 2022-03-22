@@ -1,7 +1,7 @@
 using MarblePhysics.Modding.Shared.Player;
 using UnityEngine;
 
-namespace MarblePhysics.Modding.StandardComponents.Filters
+namespace MarblePhysics.Modding
 {
     public abstract class MarbleFilter : MonoBehaviour
     {

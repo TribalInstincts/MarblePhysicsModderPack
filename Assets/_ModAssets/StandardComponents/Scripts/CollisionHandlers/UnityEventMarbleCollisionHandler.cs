@@ -1,9 +1,8 @@
 using MarblePhysics.Modding.Shared;
 using MarblePhysics.Modding.Shared.Player;
-using MarblePhysics.Modding.StandardComponents;
 using UnityEngine;
 
-namespace TribalInstincts
+namespace MarblePhysics.Modding
 {
     /// <summary>
     /// Same events as the bas MarbleCollisionHandler, just piped out to the inspector for wiring.

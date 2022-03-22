@@ -1,7 +1,7 @@
 using MarblePhysics.Modding.Shared.Player;
 using UnityEngine;
 
-namespace MarblePhysics.Modding.StandardComponents
+namespace MarblePhysics.Modding
 {
     public class RadialGravityTrigger : MarbleCollisionHandler
     {

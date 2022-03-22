@@ -2,7 +2,7 @@
 using System.Linq;
 using UnityEngine;
 
-namespace MarblePhysics
+namespace MarblePhysics.Modding
 {
     /// <summary>
     /// Returns a value from the time evaluation of an animation curve

@@ -6,61 +6,8 @@ using System.Text.RegularExpressions;
 using UnityEditor;
 using UnityEngine;
 
-namespace MarblePhysics.Modding
+namespace MarblePhysics.Modding.Test
 {
-    [CustomEditor(typeof(EditorIcon))]
-    public class EditorIconsEditor : Editor
-    {
-        private EditorIcon editorIcon;
-        
-        private void OnEnable()
-        {
-            editorIcon = target as EditorIcon;
-        }
-
-        public override void OnInspectorGUI()
-        {
-            base.OnInspectorGUI();
-            
-            if (editorIcon.TryGetValidKeys(out IEnumerable<EditorIcon.IconData> iconKeys))
-            {
-                if (GUILayout.Button("Update Constants File"))
-                {
-                    WriteConstFile(iconKeys);
-                }
-            }
-            else
-            {
-                GUILayout.Label("ERROR! See log!");
-            }
-        }
-
-
-        private static void WriteConstFile(IEnumerable<EditorIcon.IconData> values)
-        {
-            string contents = $@"//This class is auto-generated, do not modify (EditorIcons.cs)
-namespace MarblePhysics.Modding
-{{
-    public partial class EditorIcon
-    {{
-        --ICONDATAS--
-
-        public class Paths
-        {{
-            --PATHS--
-        }}
-    }}
-}}"
-                .Replace("--ICONDATAS--", string.Join(Environment.NewLine + "\t\t", values.Select(v => "public static IconData KEY => GetIcon(\"KEY\");".Replace("KEY", v.Key))))
-                .Replace("--PATHS--", string.Join(Environment.NewLine + "\t\t\t", values.Select(v => $"public const string {v.Key} = \"{(AssetDatabase.GetAssetPath(v.Icon))}\";")))
-                .Replace("\t", "    ");
-
-            string relativePath = Path.Combine(Path.GetDirectoryName(EditorIcon.GetAssetPath()), "EditorIconConstants.cs");
-            File.WriteAllText(Path.Combine(Application.dataPath, relativePath).Replace(@"Assets\Assets", "Assets"), contents);
-            AssetDatabase.ImportAsset(relativePath, ImportAssetOptions.ForceUpdate);
-        }
-    }
-    
     [CreateAssetMenu(fileName = "EditorIcon", menuName = "MarblePhysics/Util/EditorIcon")]
     public partial class EditorIcon : ScriptableObject
     {
@@ -210,6 +157,59 @@ namespace MarblePhysics.Modding
             }
 
             return AssetDatabase.GUIDToAssetPath(editorIcons[0]);
+        }
+    }
+
+    [CustomEditor(typeof(EditorIcon))]
+    public class EditorIconsEditor : Editor
+    {
+        private EditorIcon editorIcon;
+        
+        private void OnEnable()
+        {
+            editorIcon = target as EditorIcon;
+        }
+
+        public override void OnInspectorGUI()
+        {
+            base.OnInspectorGUI();
+            
+            if (editorIcon.TryGetValidKeys(out IEnumerable<EditorIcon.IconData> iconKeys))
+            {
+                if (GUILayout.Button("Update Constants File"))
+                {
+                    WriteConstFile(iconKeys);
+                }
+            }
+            else
+            {
+                GUILayout.Label("ERROR! See log!");
+            }
+        }
+
+
+        private static void WriteConstFile(IEnumerable<EditorIcon.IconData> values)
+        {
+            string contents = $@"//This class is auto-generated, do not modify (EditorIcons.cs)
+namespace MarblePhysics.Modding.Test
+{{
+    public partial class EditorIcon
+    {{
+        --ICONDATAS--
+
+        public class Paths
+        {{
+            --PATHS--
+        }}
+    }}
+}}"
+                .Replace("--ICONDATAS--", string.Join(Environment.NewLine + "\t\t", values.Select(v => "public static IconData KEY => GetIcon(\"KEY\");".Replace("KEY", v.Key))))
+                .Replace("--PATHS--", string.Join(Environment.NewLine + "\t\t\t", values.Select(v => $"public const string {v.Key} = \"{(AssetDatabase.GetAssetPath(v.Icon))}\";")))
+                .Replace("\t", "    ");
+
+            string relativePath = Path.Combine(Path.GetDirectoryName(EditorIcon.GetAssetPath()), "EditorIconConstants.cs");
+            File.WriteAllText(Path.Combine(Application.dataPath, relativePath).Replace(@"Assets\Assets", "Assets"), contents);
+            AssetDatabase.ImportAsset(relativePath, ImportAssetOptions.ForceUpdate);
         }
     }
 }

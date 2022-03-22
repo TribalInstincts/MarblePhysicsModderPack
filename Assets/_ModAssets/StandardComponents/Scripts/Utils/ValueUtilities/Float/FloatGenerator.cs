@@ -1,8 +1,6 @@
-using System;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
-namespace MarblePhysics
+namespace MarblePhysics.Modding
 {
     /// <summary>
     /// Base class for a series of classes to help generate commonly used values.

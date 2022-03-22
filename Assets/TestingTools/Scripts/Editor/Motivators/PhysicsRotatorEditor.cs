@@ -1,7 +1,7 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-namespace MarblePhysics.Modding.StandardComponents
+namespace MarblePhysics.Modding.Test
 {
     [CustomEditor(typeof(PhysicsRotator))]
     public class PhysicsRotatorEditor : UnityEditor.Editor

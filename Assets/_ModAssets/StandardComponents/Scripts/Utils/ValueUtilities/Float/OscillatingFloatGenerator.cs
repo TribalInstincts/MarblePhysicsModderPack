@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace MarblePhysics
+namespace MarblePhysics.Modding
 {
     /// <summary>
     /// Returns a value between 0.0 and 1.0 in a cos wave pattern

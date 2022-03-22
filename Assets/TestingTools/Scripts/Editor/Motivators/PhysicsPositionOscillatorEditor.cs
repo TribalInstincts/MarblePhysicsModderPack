@@ -1,7 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace MarblePhysics
+namespace MarblePhysics.Modding.Test
 {
     [CustomEditor(typeof(PhysicsPositionOscillator))]
     [CanEditMultipleObjects]
