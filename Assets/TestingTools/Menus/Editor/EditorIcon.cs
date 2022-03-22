@@ -79,6 +79,11 @@ namespace MarblePhysics.Modding
             {
                 return GUILayout.Button(GetGUIContent(tooltip), GUILayout.Width(size), GUILayout.Height(size));
             }
+
+            public bool DrawToggle(bool isEnabled, string tooltip = "", float size = 35)
+            {
+                return GUILayout.Toggle(isEnabled, GetGUIContent(tooltip), "Button", GUILayout.Width(35), GUILayout.Height(35));
+            }
             
             public bool Equals(IconData other)
             {

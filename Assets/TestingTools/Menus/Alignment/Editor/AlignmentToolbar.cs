@@ -1,12 +1,15 @@
 using System;
+using System.Linq;
 using UnityEditor;
 using UnityEditor.Overlays;
 using UnityEditor.Toolbars;
 using UnityEngine;
+using UnityEngine.U2D;
+using UnityEngine.UIElements;
 
 namespace MarblePhysics.Modding
 {
-    [Overlay(typeof(SceneView), "MarblePhysics Alignment Toolbar")]
+    [Overlay(typeof(SceneView), "MarblePhysics/Alignment Toolbar")]
     [Icon(EditorIcon.Paths.icon_align_bottom)]
     public class AlignmentToolbar : ToolbarOverlay
     {
@@ -48,7 +51,7 @@ namespace MarblePhysics.Modding
         private void OnSelectionChanged()
         {
             AlignmentUtil.OnSelectionChanged();
-            bool canAlign = AlignmentUtil.CanAlign();
+            bool canAlign = AlignmentUtil.CanAlignToFocusObject();
             if (canAlign != this.canAlign)
             {
                 this.canAlign = canAlign;
@@ -56,6 +59,9 @@ namespace MarblePhysics.Modding
             }
         }
     }
+
+
+    #region AlignmentButtons
 
     abstract class AlignmentButton : EditorToolbarButton
     {
@@ -66,9 +72,9 @@ namespace MarblePhysics.Modding
         protected AlignmentButton() : base()
         {
             icon = AssetDatabase.LoadAssetAtPath<Texture2D>(IconPath);
-            tooltip = "Instantiate a cube in the scene.";
+            tooltip = ToolTip;
             clicked += OnClick;
-            SetEnabled(AlignmentUtil.CanAlign());
+            SetEnabled(AlignmentUtil.CanAlignToFocusObject());
             AlignmentToolbar.CanAlignChanged += CanAlignChanged;
         }
 
@@ -120,14 +126,116 @@ namespace MarblePhysics.Modding
         protected override void OnClick() => AlignmentUtil.AlignEdges(Vector2.down);
     }
 
+    #endregion
+
+
+    #region SpacingButton
+
+    [Overlay(typeof(SceneView), "MarblePhysics/Arrangement Options")]
+    [Icon(EditorIcon.Paths.icon_align_spacing)]
+    public class ArrangementPanel : Overlay
+    {
+        private float spacingOffset = 1f;
+        private AlignmentUtil.Direction direction = AlignmentUtil.Direction.Right;
+        private bool updateToggled = false;
+
+        public ArrangementPanel()
+        {
+        }
+
+        public override VisualElement CreatePanelContent()
+        {
+            return new IMGUIContainer(DrawGUI);
+        }
+
+
+        private void DrawGUI()
+        {
+            EditorGUI.BeginChangeCheck();
+            direction = (AlignmentUtil.Direction) EditorGUILayout.EnumPopup("Direction:", direction);
+            spacingOffset = EditorGUILayout.DelayedFloatField("Spacing Offset:", spacingOffset);
+
+            if (AlignmentUtil.CanAlign())
+            {
+                updateToggled = GUILayout.Button("Arrange");
+                if (EditorGUI.EndChangeCheck() || updateToggled)
+                {
+                    AlignmentUtil.UpdateSpacing(direction, spacingOffset);
+                }
+            }
+            else
+            {
+                updateToggled = false;
+            }
+        }
+    }
+
+    #endregion
+
 
     public static class AlignmentUtil
     {
+        public enum Direction
+        {
+            Up,
+            Down,
+            Left,
+            Right
+        }
+
+        public static Vector2 AsVector(this Direction direction)
+        {
+            return direction switch
+            {
+                Direction.Up => Vector2.up,
+                Direction.Down => Vector2.down,
+                Direction.Left => Vector2.left,
+                Direction.Right => Vector2.right
+            };
+        }
+
+        public static Direction Opposite(this Direction direction)
+        {
+            return direction switch
+            {
+                Direction.Up => Direction.Down,
+                Direction.Down => Direction.Up,
+                Direction.Left => Direction.Right,
+                Direction.Right => Direction.Left
+            };
+        }
+
+        static AlignmentUtil()
+        {
+            SceneView.duringSceneGui += SceneViewOnduringSceneGui;
+        }
+
+        private static void SceneViewOnduringSceneGui(SceneView obj)
+        {
+            if (CanAlignToFocusObject())
+            {
+                float size = 1;
+                if (TryGetBounds(alignmentTarget, out Bounds bounds))
+                {
+                    size = Mathf.Max(bounds.extents.x, bounds.extents.y);
+                }
+                Handles.DrawSelectionFrame(0, alignmentTarget.transform.position, Quaternion.identity, size + .25f, EventType.Repaint);
+            }
+        }
+
         private static GameObject alignmentTarget = null;
+
+        public static bool HasModifiedCurrentTarget { get; private set; }
+        private static GameObject[] objectOrder;
+
+        public static bool CanAlignToFocusObject()
+        {
+            return Selection.count > 1 && alignmentTarget != null;
+        }
 
         public static bool CanAlign()
         {
-            return Selection.count > 1 && alignmentTarget != null;
+            return Selection.gameObjects is {Length: > 2};
         }
 
         public static void OnSelectionChanged()
@@ -147,11 +255,47 @@ namespace MarblePhysics.Modding
             {
                 alignmentTarget = null;
             }
+            else if (alignmentTarget == null || !Selection.Contains(alignmentTarget))
+            {
+                alignmentTarget = Selection.activeGameObject;
+            }
+
+            HasModifiedCurrentTarget = false;
+            objectOrder = null;
+        }
+
+        public static void UpdateSpacing(Direction direction, float distance)
+        {
+            RecordChange();
+
+
+            Vector2 vector = direction.AsVector();
+            Vector2 offset = vector * distance;
+            Vector2 oppositeVector = direction.Opposite().AsVector();
+            Vector2 absDirection = new Vector2(Mathf.Abs(vector.x), Mathf.Abs(vector.y));
+
+            if (objectOrder == null)
+            {
+                objectOrder = Selection.gameObjects.OrderBy(go => Vector2.Dot(vector, GetBoundsPosition(go, oppositeVector))).ToArray();
+            }
+
+            Vector2 nextPoint = GetBoundsPosition(alignmentTarget, vector) + offset;
+            foreach (GameObject gameObject in objectOrder)
+            {
+                if (gameObject != alignmentTarget)
+                {
+                    Vector2 goStart = GetBoundsPosition(gameObject, oppositeVector);
+                    Vector2 goEnd = GetBoundsPosition(gameObject, vector);
+                    gameObject.transform.position += (Vector3) ((nextPoint - goStart) * absDirection);
+
+                    nextPoint += (goEnd - goStart) + offset;
+                }
+            }
         }
 
         public static void AlignEdges(Vector2 anchor)
         {
-            Undo.RecordObjects(Selection.objects, "Alignment Event");
+            RecordChange();
             Vector2 alignmentPoint = GetBoundsPosition(alignmentTarget, anchor);
             Vector2 absAnchor = new Vector2(Mathf.Abs(anchor.x), Mathf.Abs(anchor.y));
             foreach (GameObject gameObject in Selection.gameObjects)
@@ -168,7 +312,7 @@ namespace MarblePhysics.Modding
 
         public static void Center(bool horizontal)
         {
-            Undo.RecordObjects(Selection.objects, "Alignment Event");
+            RecordChange();
             Vector2 targetMult = horizontal ? new Vector2(0, 1) : new Vector2(1, 0);
             Vector2 otherMult = horizontal ? new Vector2(1, 0) : new Vector2(0, 1);
 
@@ -184,6 +328,12 @@ namespace MarblePhysics.Modding
             }
         }
 
+        private static void RecordChange()
+        {
+            HasModifiedCurrentTarget = true;
+            Undo.RecordObjects(Selection.gameObjects.Select(go => go.transform).ToArray(), "Alignment Event");
+        }
+
 
         private static Vector2 GetBoundsPosition(GameObject gameObject)
         {
@@ -192,11 +342,10 @@ namespace MarblePhysics.Modding
 
         private static Vector2 GetBoundsPosition(GameObject gameObject, Vector2 anchor)
         {
-            if (gameObject.TryGetComponent(out Collider2D collider))
+            if (TryGetBounds(gameObject, out Bounds bounds))
             {
-                Bounds colliderBounds = collider.bounds;
-                Vector2 center = colliderBounds.center;
-                Vector2 extent = colliderBounds.extents * anchor;
+                Vector2 center = bounds.center;
+                Vector2 extent = bounds.extents * anchor;
                 Vector2 worldPosition = center + extent;
                 return worldPosition;
             }
@@ -204,6 +353,25 @@ namespace MarblePhysics.Modding
             {
                 return gameObject.transform.position;
             }
+        }
+
+        private static bool TryGetBounds(GameObject gameObject, out Bounds bounds)
+        {
+            bounds = default;
+            if (gameObject.TryGetComponent(out Collider2D collider))
+            {
+                bounds = collider.bounds;
+            }
+            else if (gameObject.TryGetComponent(out SpriteRenderer sr))
+            {
+                bounds = sr.bounds;
+            }
+            else if (gameObject.TryGetComponent(out SpriteShapeRenderer ssr))
+            {
+                bounds = ssr.bounds;
+            }
+
+            return bounds != default;
         }
     }
 }
