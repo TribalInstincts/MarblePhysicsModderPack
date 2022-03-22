@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05200b3a85ad6f045b0be194a8b796d0, type: 3}
+  m_Name: EditorIcon
+  m_EditorClassIdentifier: 
+  defaultIcon:
+    Key: Default
+    Icon: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  icons:
+  - Key: icon_align_bottom
+    Icon: {fileID: 2800000, guid: 9b4a06af52efcfb4ebf8d510b3a210ca, type: 3}
+  - Key: icon_align_center_horizontal
+    Icon: {fileID: 2800000, guid: 2c76dd77c5c07dc4299063b4a8a7b226, type: 3}
+  - Key: icon_align_center_vertical
+    Icon: {fileID: 2800000, guid: 28a54c2ee9b3f4f4fbb275ae74222a5e, type: 3}
+  - Key: icon_align_left
+    Icon: {fileID: 2800000, guid: 6f12904afd8f6994eaa17dcfa1c45537, type: 3}
+  - Key: icon_align_right
+    Icon: {fileID: 2800000, guid: bc90b0bd756a0d443852f20eb92ca07f, type: 3}
+  - Key: icon_align_top
+    Icon: {fileID: 2800000, guid: 450cd4032f37e6d4ab2e2fd0c80939ab, type: 3}
+  - Key: icon_align_spacing
+    Icon: {fileID: 2800000, guid: 9caf4b90eaca20946af155c9ad18927b, type: 3}

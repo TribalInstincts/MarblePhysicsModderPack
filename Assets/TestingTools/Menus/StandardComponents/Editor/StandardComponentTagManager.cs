@@ -78,6 +78,5 @@ namespace MarblePhysics.Modding
             StandardComponentTagManager instance = GetInstance();
             return instance != null ? instance.Tags : new Tag[0];
         }
-        
     }
 }
