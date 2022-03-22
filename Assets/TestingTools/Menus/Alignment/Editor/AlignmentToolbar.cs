@@ -136,8 +136,12 @@ namespace MarblePhysics.Modding.Test
     public class ArrangementPanel : Overlay
     {
         private float spacingOffset = 1f;
-        private AlignmentUtil.Direction direction = AlignmentUtil.Direction.Right;
-        private bool updateToggled = false;
+        private AlignmentUtil.Direction spacingDirection = AlignmentUtil.Direction.Right;
+        private AlignmentUtil.Axis distributeAxis = AlignmentUtil.Axis.Horizontal;
+        private AlignmentUtil.DistributeMethod distributeMethod = AlignmentUtil.DistributeMethod.Bounds;
+
+        private bool showSpacing = true;
+        private bool showDistribution = true;
 
         public ArrangementPanel()
         {
@@ -151,21 +155,34 @@ namespace MarblePhysics.Modding.Test
 
         private void DrawGUI()
         {
-            EditorGUI.BeginChangeCheck();
-            direction = (AlignmentUtil.Direction) EditorGUILayout.EnumPopup("Direction:", direction);
-            spacingOffset = EditorGUILayout.DelayedFloatField("Spacing Offset:", spacingOffset);
+            showSpacing = EditorGUILayout.Foldout(showSpacing, "Even Spacing");
+            if (showSpacing)
+            {
+                EditorGUI.BeginChangeCheck();
+                spacingDirection = (AlignmentUtil.Direction) EditorGUILayout.EnumPopup("Direction:", spacingDirection);
+                spacingOffset = EditorGUILayout.DelayedFloatField("Spacing Offset:", spacingOffset);
 
-            if (AlignmentUtil.CanAlign())
-            {
-                updateToggled = GUILayout.Button("Arrange");
-                if (EditorGUI.EndChangeCheck() || updateToggled)
+                GUI.enabled = AlignmentUtil.CanAlign();
+                if (GUILayout.Button("Arrange") || EditorGUI.EndChangeCheck())
                 {
-                    AlignmentUtil.UpdateSpacing(direction, spacingOffset);
+                    AlignmentUtil.UpdateSpacing(spacingDirection, spacingOffset);
                 }
+
+                GUI.enabled = true;
             }
-            else
+
+            showDistribution = EditorGUILayout.Foldout(showDistribution, "Even Distribution");
+            if (showDistribution)
             {
-                updateToggled = false;
+                distributeMethod = (AlignmentUtil.DistributeMethod) EditorGUILayout.EnumPopup("Distribute Method:", distributeMethod);
+                distributeAxis = (AlignmentUtil.Axis) EditorGUILayout.EnumPopup("Axis:", distributeAxis);
+                GUI.enabled = AlignmentUtil.CanDistribute();
+                if (GUILayout.Button("Distribute"))
+                {
+                    AlignmentUtil.Distribute(distributeMethod, distributeAxis);
+                }
+
+                GUI.enabled = true;
             }
         }
     }
@@ -181,6 +198,12 @@ namespace MarblePhysics.Modding.Test
             Down,
             Left,
             Right
+        }
+
+        public enum Axis
+        {
+            Horizontal,
+            Vertical
         }
 
         public static Vector2 AsVector(this Direction direction)
@@ -207,6 +230,12 @@ namespace MarblePhysics.Modding.Test
             };
         }
 
+        public enum DistributeMethod
+        {
+            Bounds,
+            Center
+        }
+
         static AlignmentUtil()
         {
             SceneView.duringSceneGui += SceneViewOnduringSceneGui;
@@ -221,6 +250,7 @@ namespace MarblePhysics.Modding.Test
                 {
                     size = Mathf.Max(bounds.extents.x, bounds.extents.y);
                 }
+
                 Handles.DrawSelectionFrame(0, alignmentTarget.transform.position, Quaternion.identity, size + .25f, EventType.Repaint);
             }
         }
@@ -228,7 +258,7 @@ namespace MarblePhysics.Modding.Test
         private static GameObject alignmentTarget = null;
 
         public static bool HasModifiedCurrentTarget { get; private set; }
-        private static GameObject[] objectOrder;
+        private static GameObject[] spacingObjectOrder;
 
         public static bool CanAlignToFocusObject()
         {
@@ -236,6 +266,11 @@ namespace MarblePhysics.Modding.Test
         }
 
         public static bool CanAlign()
+        {
+            return Selection.gameObjects is {Length: > 1};
+        }
+
+        public static bool CanDistribute()
         {
             return Selection.gameObjects is {Length: > 2};
         }
@@ -263,7 +298,7 @@ namespace MarblePhysics.Modding.Test
             }
 
             HasModifiedCurrentTarget = false;
-            objectOrder = null;
+            spacingObjectOrder = null;
         }
 
         public static void UpdateSpacing(Direction direction, float distance)
@@ -276,13 +311,13 @@ namespace MarblePhysics.Modding.Test
             Vector2 oppositeVector = direction.Opposite().AsVector();
             Vector2 absDirection = new Vector2(Mathf.Abs(vector.x), Mathf.Abs(vector.y));
 
-            if (objectOrder == null)
+            if (spacingObjectOrder == null)
             {
-                objectOrder = Selection.gameObjects.OrderBy(go => Vector2.Dot(vector, GetBoundsPosition(go, oppositeVector))).ToArray();
+                spacingObjectOrder = Selection.gameObjects.OrderBy(go => Vector2.Dot(vector, GetBoundsPosition(go, oppositeVector))).ToArray();
             }
 
             Vector2 nextPoint = GetBoundsPosition(alignmentTarget, vector) + offset;
-            foreach (GameObject gameObject in objectOrder)
+            foreach (GameObject gameObject in spacingObjectOrder)
             {
                 if (gameObject != alignmentTarget)
                 {
@@ -291,6 +326,65 @@ namespace MarblePhysics.Modding.Test
                     gameObject.transform.position += (Vector3) ((nextPoint - goStart) * absDirection);
 
                     nextPoint += (goEnd - goStart) + offset;
+                }
+            }
+        }
+
+        public static void Distribute(DistributeMethod distributeMethod, Axis axis)
+        {
+            RecordChange();
+
+            Vector2 direction = axis == Axis.Horizontal ? Vector2.right : Vector2.up;
+            GameObject[] gos = Selection.gameObjects.OrderBy(go => Vector2.Dot(direction, go.transform.position)).ToArray();
+            Vector2 first = gos[0].transform.position;
+            Vector2 last = gos[^1].transform.position;
+            if (distributeMethod == DistributeMethod.Bounds)
+            {
+                first = GetBoundsPosition(gos[0], direction);
+                last = GetBoundsPosition(gos[^1], direction * -1f);
+            }
+
+            int remaining = gos.Length - 2;
+            if (distributeMethod == DistributeMethod.Center)
+            {
+                float distanceBetween = Vector2.Distance(first, last);
+                Vector2 offsetPer = direction * (distanceBetween / (remaining + 1));
+                Vector2 nextPoint = first + offsetPer;
+                for (int i = 1; i < gos.Length - 1; i++)
+                {
+                    GameObject gameObject = gos[i];
+
+                    gameObject.transform.position += (Vector3) ((nextPoint - (Vector2) gameObject.transform.position) * direction);
+                    nextPoint += offsetPer;
+                }
+            }
+            else
+            {
+                float distanceBetween = Vector2.Distance(first * direction, last * direction);
+                Vector2 availableSpace = direction * distanceBetween * direction;
+                for (int i = 1; i < gos.Length - 1; i++)
+                {
+                    if (TryGetBounds(gos[i], out Bounds bounds))
+                    {
+                        availableSpace -= (Vector2) bounds.size;
+                    }
+                }
+
+                Vector2 offsetPer = direction * (availableSpace / (remaining + 1));
+
+                Vector2 nextPoint = first + offsetPer;
+                for (int i = 1; i < gos.Length - 1; i++)
+                {
+                    GameObject gameObject = gos[i];
+
+                    Vector2 size = Vector2.zero;
+                    if (TryGetBounds(gos[i], out Bounds bounds))
+                    {
+                        size = (Vector2) bounds.size;
+                    }
+
+                    gameObject.transform.position += (Vector3) ((nextPoint - (Vector2) gameObject.transform.position + (size * .5f)) * direction);
+                    nextPoint += offsetPer + (size * direction);
                 }
             }
         }
