@@ -55,12 +55,13 @@
      <Compile Include="Assets\_ModAssets\StandardComponents\Scripts\Utils\ValueUtilities\Float\OscillatingFloatGenerator.cs" />
      <Compile Include="Assets\_ModAssets\StandardComponents\Scripts\Utils\MathUtilities\Perlin.cs" />
      <Compile Include="Assets\_ModAssets\StandardComponents\Scripts\Motivators\PhysicsPositionOscillator.cs" />
-     <Compile Include="Assets\_ModAssets\StandardComponents\Scripts\Utils\Shapes\ColliderToMesh.cs" />
+     <Compile Include="Assets\_ModAssets\StandardComponents\Scripts\Utils\GameObject\GameObjectUtils.cs" />
      <Compile Include="Assets\_ModAssets\StandardComponents\Scripts\Sorters\Seats\Seat.cs" />
      <Compile Include="Assets\TestingTools\Menus\StandardComponents\StandardComponentMetadata.cs" />
      <Compile Include="Assets\_ModAssets\StandardComponents\Scripts\Utils\ValueUtilities\Float\CurveFloatGenerator.cs" />
      <Compile Include="Assets\_ModAssets\StandardComponents\Scripts\Sorters\Seats\SeatSorter.cs" />
      <Compile Include="Assets\_ModAssets\StandardComponents\Scripts\SpawnZones\SpawnZone.cs" />
+     <Compile Include="Assets\_ModAssets\StandardComponents\Scripts\WorldGen\CutVolume.cs" />
      <Compile Include="Assets\_ModAssets\StandardComponents\Scripts\WorldGen\EnvironmentShaper.cs" />
      <Compile Include="Assets\_ModAssets\StandardComponents\Scripts\Utils\ValueUtilities\AngleVector.cs" />
      <Compile Include="Assets\_ModAssets\StandardComponents\Scripts\CollisionHandlers\ApplyForceTrigger.cs" />
@@ -75,6 +76,7 @@
      <Compile Include="Assets\_ModAssets\StandardComponents\Scripts\SpawnZones\ColliderSpawnZone.cs" />
      <Compile Include="Assets\_ModAssets\StandardComponents\Scripts\CameraControllers\CameraController.cs" />
      <Compile Include="Assets\_ModAssets\StandardComponents\Scripts\CollisionHandlers\LinearGravityTrigger.cs" />
+     <Compile Include="Assets\TestingTools\Scripts\FPSCounter.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />

@@ -21,9 +21,9 @@ namespace MarblePhysics.Modding.Test
 
         private void OnSceneGUI()
         {
-            foreach (PolygonCollider2D collider in environmentShaper.CutColliders)
+            foreach (CutVolume activeCutVolume in CutVolume.ActiveCutVolumes)
             {
-                DrawHandle(collider.transform);
+                DrawHandle(activeCutVolume.transform);
             }
             
             void DrawHandle(Transform target)
