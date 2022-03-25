@@ -57,7 +57,7 @@
      <Compile Include="Assets\_ModAssets\StandardComponents\Scripts\Motivators\PhysicsPositionOscillator.cs" />
      <Compile Include="Assets\_ModAssets\StandardComponents\Scripts\Utils\GameObject\GameObjectUtils.cs" />
      <Compile Include="Assets\_ModAssets\StandardComponents\Scripts\Sorters\Seats\Seat.cs" />
-     <Compile Include="Assets\TestingTools\Menus\StandardComponents\StandardComponentMetadata.cs" />
+     <Compile Include="Assets\TestingTools\Scripts\StandardComponentMetadata.cs" />
      <Compile Include="Assets\_ModAssets\StandardComponents\Scripts\Utils\ValueUtilities\Float\CurveFloatGenerator.cs" />
      <Compile Include="Assets\_ModAssets\StandardComponents\Scripts\Sorters\Seats\SeatSorter.cs" />
      <Compile Include="Assets\_ModAssets\StandardComponents\Scripts\SpawnZones\SpawnZone.cs" />
