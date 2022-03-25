@@ -29,6 +29,8 @@ namespace MarblePhysics.Modding
         private Paths solution = null;
         private Clipper clipper = null;
 
+        private float totalTime = 0;
+
         private void Init()
         {
             if (!isInitialized)
@@ -99,47 +101,6 @@ namespace MarblePhysics.Modding
             solution.Clear();
             clipper.Execute(clipType, solution, fillType);
             UpdateResultCollider(resultCollider, solution);
-        }
-        
-        public void GenerateMesh()
-        {
-            Polygon polygon = new Polygon(resultCollider.points.Select(p => new PolygonPoint(p.x, p.y)));
-            if (resultCollider.pathCount > 1)
-            {
-                for (int i = 1; i < resultCollider.pathCount; i++)
-                {
-                    polygon.AddHole(new Polygon(resultCollider.GetPath(i).Select(p => new PolygonPoint(p.x, p.y))));
-                }
-            }
-
-            P2T.Triangulate(polygon);
-            Dictionary<TriangulationPoint, int> pointToIndex = new Dictionary<TriangulationPoint, int>();
-            List<Vector3> verts = new List<Vector3>();
-            
-
-            IList<DelaunayTriangle> triangles = polygon.Triangles;
-            int vertCount = 0;
-            int[] tris = new int[triangles.Count * 3];
-            int triIndex = 0;
-            foreach (DelaunayTriangle delaunayTriangle in triangles)
-            {
-                foreach (TriangulationPoint point in delaunayTriangle.Points)
-                {
-                    if (!pointToIndex.TryGetValue(point, out int index))
-                    {
-                        index = vertCount++;
-                        pointToIndex[point] = index;
-                        verts.Add(new Vector2(point.Xf, point.Yf));
-                    }
-                    
-                    tris[triIndex++] = index;
-                }
-            }
-
-            Mesh meshFilterSharedMesh = meshFilter.sharedMesh;
-            meshFilterSharedMesh.Clear();
-            meshFilterSharedMesh.vertices = verts.ToArray();
-            meshFilterSharedMesh.triangles = tris;
         }
 
         private void UpdateSourcePath()
