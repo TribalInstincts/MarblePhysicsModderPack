@@ -29,8 +29,6 @@ namespace MarblePhysics.Modding
         private Paths solution = null;
         private Clipper clipper = null;
 
-        private float totalTime = 0;
-
         private void Init()
         {
             if (!isInitialized)
@@ -79,12 +77,6 @@ namespace MarblePhysics.Modding
             meshFilter.sharedMesh.triangles = mesh.triangles;
         }
 
-        [SerializeField]
-        private ClipType clipType = ClipType.ctDifference;
-
-        [SerializeField]
-        private PolyFillType fillType = PolyFillType.pftNonZero;
-        
         private void CutShape()
         {
             UpdateSourcePath();
@@ -99,7 +91,7 @@ namespace MarblePhysics.Modding
             }
 
             solution.Clear();
-            clipper.Execute(clipType, solution, fillType);
+            clipper.Execute(ClipType.ctDifference, solution, PolyFillType.pftNonZero);
             UpdateResultCollider(resultCollider, solution);
         }
 
