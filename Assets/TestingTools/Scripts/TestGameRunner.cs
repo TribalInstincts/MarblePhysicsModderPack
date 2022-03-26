@@ -108,6 +108,7 @@ namespace MarblePhysics.Modding.Test
         public override Marble AcquireInstance(PlayerReference playerReference)
         {
             Marble newMarble = Instantiate(marblePrefab);
+            
             newMarble.Init(LayerConfig.LatestInstance.DefaultMarbleLayer);
             newMarble.SetPlayer(playerReference);
             return newMarble;

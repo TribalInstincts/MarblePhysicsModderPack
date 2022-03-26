@@ -60,7 +60,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6869609331994066369}
   - component: {fileID: 6903083054834205520}
-  m_Layer: 8
+  m_Layer: 6
   m_Name: PlayerImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -670,7 +670,7 @@ GameObject:
   - component: {fileID: 7667679332719940671}
   - component: {fileID: 2786747108974988672}
   - component: {fileID: 5910731312075534294}
-  m_Layer: 8
+  m_Layer: 6
   m_Name: PlayerVisual
   m_TagString: Untagged
   m_Icon: {fileID: 0}

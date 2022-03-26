@@ -16,7 +16,7 @@ namespace MarblePhysics.Modding.Test
         {
             public string Key;
             public Texture Icon;
-            
+
             public GUIContent GetGUIContent(string tooltip)
             {
                 return new GUIContent(Icon, tooltip);
@@ -31,7 +31,7 @@ namespace MarblePhysics.Modding.Test
             {
                 return GUILayout.Toggle(isEnabled, GetGUIContent(tooltip), "Button", GUILayout.Width(35), GUILayout.Height(35));
             }
-            
+
             public bool Equals(IconData other)
             {
                 return Key == other.Key;
@@ -65,7 +65,8 @@ namespace MarblePhysics.Modding.Test
         private IconData defaultIcon = default;
 
         [SerializeField]
-        private IconData[] icons = default;
+        private List<IconData> icons = default;
+        public List<IconData> Icons => icons;
 
         private HashSet<IconData> iconsSet;
 
@@ -76,7 +77,7 @@ namespace MarblePhysics.Modding.Test
 
         private IconData Get(string key)
         {
-            if (iconsSet == null || iconsSet.Count != icons.Length)
+            if (iconsSet == null || iconsSet.Count != icons.Count)
             {
                 iconsSet = new HashSet<IconData>(icons.Where(i => !string.IsNullOrEmpty(i.Key)));
             }
@@ -101,7 +102,7 @@ namespace MarblePhysics.Modding.Test
             }
 
             bool hasError = false;
-            for (int i = 0; i < icons.Length; i++)
+            for (int i = 0; i < icons.Count; i++)
             {
                 IconData iconData = icons[i];
                 if (iconData.Icon != null)
@@ -136,8 +137,8 @@ namespace MarblePhysics.Modding.Test
                 return true;
             }
         }
-        
-        private static EditorIcon GetInstance()
+
+        public static EditorIcon GetInstance()
         {
             if (instance == null)
             {
@@ -164,7 +165,7 @@ namespace MarblePhysics.Modding.Test
     public class EditorIconsEditor : Editor
     {
         private EditorIcon editorIcon;
-        
+
         private void OnEnable()
         {
             editorIcon = target as EditorIcon;
@@ -173,7 +174,7 @@ namespace MarblePhysics.Modding.Test
         public override void OnInspectorGUI()
         {
             base.OnInspectorGUI();
-            
+            DropAreaGUI();
             if (editorIcon.TryGetValidKeys(out IEnumerable<EditorIcon.IconData> iconKeys))
             {
                 if (GUILayout.Button("Update Constants File"))
@@ -184,6 +185,37 @@ namespace MarblePhysics.Modding.Test
             else
             {
                 GUILayout.Label("ERROR! See log!");
+            }
+        }
+
+        public void DropAreaGUI()
+        {
+            Event currentEvent = Event.current;
+            Rect dropArea = GUILayoutUtility.GetRect(0.0f, 50.0f, GUILayout.ExpandWidth(true));
+            GUI.Box(dropArea, "Drop Icons Here");
+
+            if (DragAndDrop.objectReferences.Length > 0 && dropArea.Contains(currentEvent.mousePosition))
+            {
+                Texture[] textures = DragAndDrop.objectReferences.Select(o => o as Texture).Where(t => t != null).ToArray();
+                if (textures.Length > 0)
+                {
+                    DragAndDrop.visualMode = DragAndDropVisualMode.Copy;
+                    if (currentEvent.type == EventType.DragPerform)
+                    {
+                        DragAndDrop.AcceptDrag();
+                        foreach (UnityEngine.Object draggedObject in DragAndDrop.objectReferences)
+                        {
+                            if (draggedObject is Texture texture)
+                            {
+                                EditorIcon.IconData iconData = new EditorIcon.IconData(){Icon = texture, Key = texture.name};
+                                if (!editorIcon.Icons.Contains(iconData))
+                                {
+                                    editorIcon.Icons.Add(iconData);
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
 

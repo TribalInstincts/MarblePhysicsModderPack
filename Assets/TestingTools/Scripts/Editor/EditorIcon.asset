@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultIcon:
     Key: Default
-    Icon: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+    Icon: {fileID: 2800000, guid: 63c944b6af9ae6c49820bb3cd4d44397, type: 3}
   icons:
   - Key: icon_align_bottom
     Icon: {fileID: 2800000, guid: 9b4a06af52efcfb4ebf8d510b3a210ca, type: 3}
@@ -30,3 +30,13 @@ MonoBehaviour:
     Icon: {fileID: 2800000, guid: 450cd4032f37e6d4ab2e2fd0c80939ab, type: 3}
   - Key: icon_align_spacing
     Icon: {fileID: 2800000, guid: 9caf4b90eaca20946af155c9ad18927b, type: 3}
+  - Key: icon_envShaper_box
+    Icon: {fileID: 2800000, guid: 6b31cc736b47f7140bd97febe5bc2265, type: 3}
+  - Key: icon_envShaper_canvas
+    Icon: {fileID: 2800000, guid: ea33a4e401766d24e9f16ac7c1560a4e, type: 3}
+  - Key: icon_envShaper_circle
+    Icon: {fileID: 2800000, guid: 9f6d4b4a925fcdf4d984164367950546, type: 3}
+  - Key: icon_envShaper_poly
+    Icon: {fileID: 2800000, guid: 65752b0eec4948548a6aecce28198aa6, type: 3}
+  - Key: icon_envShaper_toPoly
+    Icon: {fileID: 2800000, guid: 6eb7f4f6e75cf0647a93f5130828a360, type: 3}

@@ -49,18 +49,20 @@
      <Compile Include="Assets\TestingTools\Scripts\Editor\Motivators\PhysicsRotatorEditor.cs" />
      <Compile Include="Assets\TestingTools\Scripts\Editor\EditorIconConstants.cs" />
      <Compile Include="Assets\TestingTools\Scripts\Editor\EditorHelper.cs" />
+     <Compile Include="Assets\TestingTools\Scripts\Editor\Toolbars\EditorAlignmentUtils.cs" />
+     <Compile Include="Assets\TestingTools\Scripts\Editor\Toolbars\ArrangementToolbar.cs" />
      <Compile Include="Assets\TestingTools\Scripts\Editor\CollisionHandlers\TeleportTriggerEditor.cs" />
      <Compile Include="Assets\TestingTools\Scripts\Editor\VectorHandle.cs" />
+     <Compile Include="Assets\TestingTools\Scripts\Editor\Toolbars\EnvironmentShaperToolbar.cs" />
      <Compile Include="Assets\TestingTools\Scripts\Editor\CollisionHandlers\ApplyForceTriggerEditor.cs" />
-     <Compile Include="Assets\TestingTools\Scripts\Editor\EnvironmentShaperEditor.cs" />
      <Compile Include="Assets\TestingTools\Scripts\Editor\Motivators\PhysicsPositionOscillatorEditor.cs" />
      <Compile Include="Assets\TestingTools\Scripts\Editor\CameraControllers\StaticCameraControllerEditor.cs" />
      <Compile Include="Assets\TestingTools\Scripts\Editor\StandardComponents\StandardComponentMetadataEditor.cs" />
      <Compile Include="Assets\TestingTools\Scripts\Editor\StandardComponents\StandardComponentTagManager.cs" />
      <Compile Include="Assets\TestingTools\Scripts\Editor\Toolbars\AlignmentToolbar.cs" />
      <Compile Include="Assets\TestingTools\Scripts\Editor\CollisionHandlers\RadialGravityTriggerEditor.cs" />
-     <Compile Include="Assets\TestingTools\Scripts\Editor\Toolbars\ArrangementToolbar.cs" />
-     <Compile Include="Assets\TestingTools\Scripts\Editor\Toolbars\EditorAlignmentUtils.cs" />
+     <Compile Include="Assets\TestingTools\Scripts\Editor\WorldGen\EnvironmentCanvasEditor.cs" />
+     <Compile Include="Assets\TestingTools\Scripts\Editor\WorldGen\CutVolumeEditor.cs" />
      <None Include="Assets\UMod\Resources\Editor\Data\Readme.txt" />
      <Reference Include="UnityEngine">
      <HintPath>C:\Program Files\Unity\Hub\Editor\2022.1.0b8\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>

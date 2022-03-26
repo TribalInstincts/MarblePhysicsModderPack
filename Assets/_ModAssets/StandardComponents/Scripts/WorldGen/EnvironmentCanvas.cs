@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using ClipperLib;
@@ -8,44 +9,36 @@ using Paths = System.Collections.Generic.List<System.Collections.Generic.List<Cl
 
 namespace MarblePhysics.Modding
 {
-    [ExecuteAlways]
     [RequireComponent(typeof(PolygonCollider2D))]
     [RequireComponent(typeof(MeshFilter))]
-    public class EnvironmentShaper : MonoBehaviour
+    [RequireComponent(typeof(MeshRenderer))]
+    public class EnvironmentCanvas : MonoBehaviour
     {
         private const float ClipperConversionScale = 1000f;
 
-        [SerializeField]
-        private bool cut = false;
-
-        [SerializeField]
-        private Vector2 size = default;
-
-        private bool isInitialized = false;
         private PolygonCollider2D resultCollider = default;
         private MeshFilter meshFilter = default;
 
         private Paths sourcePath = default;
         private Paths solution = null;
         private Clipper clipper = null;
+        private Collider2D[] overlappingColliders;
+        public Bounds Bounds => resultCollider.bounds;
 
-        private void Init()
+        [SerializeField]
+        private bool cutOnce = false;
+
+        public void Init()
         {
-            if (!isInitialized)
+            if (clipper == null)
             {
+                overlappingColliders = new Collider2D[0];
                 clipper = new Clipper();
                 solution = new Paths();
                 resultCollider = GetComponent<PolygonCollider2D>();
                 meshFilter = GetComponent<MeshFilter>();
                 meshFilter.sharedMesh = new Mesh();
-
-                isInitialized = true;
             }
-        }
-
-        private void OnEnable()
-        {
-            isInitialized = false;
         }
 
         private void Awake()
@@ -53,14 +46,25 @@ namespace MarblePhysics.Modding
             Init();
         }
 
+
+        private void Start()
+        {
+            CutHoles();
+        }
+
         private void Update()
         {
-            Init();
-            if (cut)
+            if (cutOnce)
             {
-                CutShape();
-                UpdateMesh();
+                CutHoles();
+                cutOnce = false;
             }
+        }
+
+        public void CutHoles()
+        {
+            CutShape();
+            UpdateMesh();
         }
 
         private void UpdateMesh()
@@ -82,11 +86,14 @@ namespace MarblePhysics.Modding
             UpdateSourcePath();
             clipper.Clear();
             clipper.AddPaths(sourcePath, PolyType.ptSubject, true);
-            foreach (CutVolume activeCutVolume in CutVolume.ActiveCutVolumes)
+            foreach (Collider2D collider2D in Physics2D.OverlapBoxAll(resultCollider.bounds.center, resultCollider.bounds.size, transform.localEulerAngles.z))
             {
-                if (activeCutVolume.TryGetPaths(out Paths paths))
+                if (collider2D.gameObject.TryGetComponent(out CutVolume cutVolume))
                 {
-                    clipper.AddPaths(paths, PolyType.ptClip, true);
+                    if (cutVolume.TryGetPaths(out Paths paths))
+                    {
+                        clipper.AddPaths(paths, PolyType.ptClip, true);
+                    }
                 }
             }
 
@@ -97,7 +104,7 @@ namespace MarblePhysics.Modding
 
         private void UpdateSourcePath()
         {
-            Vector2 halfSize = size * .5f;
+            Vector2 halfSize = Vector3.one * .5f;
             this.sourcePath = new Paths
             {
                 new()
