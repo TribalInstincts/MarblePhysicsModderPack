@@ -18,10 +18,9 @@ namespace MarblePhysics.Modding
         private int pointCount = 4;
         private bool isCutVolume = false;
 
-        private bool includeVisual;
-        private bool visual;
+        private bool includeVisual = true;
         private ThemeElementCategory elementCategory = ThemeElementCategory.Environment;
-        private Color color = Color.white.WithAlpha(.5f);
+        private Color color = Color.white.WithAlpha(.01f);
 
         private Plane plane;
         private int envLayer;
@@ -101,7 +100,6 @@ namespace MarblePhysics.Modding
                 envLayer = EditorGUILayout.LayerField("Layer: ", envLayer);
             }
 
-
             string shapeName = pointCount switch
             {
                 3 => "Triangle",
@@ -178,7 +176,6 @@ namespace MarblePhysics.Modding
                 }
             }
 
-            Undo.RegisterCreatedObjectUndo(instance, "Create EnvShaper element");
 
             bool foundPosition = false;
             if (containerWindow is SceneView sceneView)
@@ -196,6 +193,8 @@ namespace MarblePhysics.Modding
                 instance.transform.ClearLocal();
             }
 
+            Selection.activeGameObject = instance;
+            Undo.RegisterCreatedObjectUndo(instance, "Create EnvShaper element");
             return instance;
         }
 

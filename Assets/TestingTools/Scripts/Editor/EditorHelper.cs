@@ -24,7 +24,7 @@ namespace MarblePhysics.Modding.Test
                 TestGameRunner gameRunner = GameObject.FindObjectOfType<TestGameRunner>();
                 if (gameRunner == null)
                 {
-                    EditorSceneManager.OpenScene("Assets/TestingTools/TestingScene.unity", OpenSceneMode.Additive);
+                    EditorSceneManager.OpenScene("Assets/TestingTools/Resources/GameRunner.unity", OpenSceneMode.Additive);
                 }
             } 
             else if (state == PlayModeStateChange.EnteredEditMode)

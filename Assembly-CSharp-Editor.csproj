@@ -42,9 +42,11 @@
   </PropertyGroup>
   <ItemGroup>
      <Compile Include="Assets\ModTools\Scripts\Editor\ModToolsMenu.cs" />
+     <Compile Include="Assets\TestingTools\Scripts\Editor\WorldGen\CutVolumeEditor.cs" />
      <Compile Include="Assets\TestingTools\Scripts\Editor\CollisionHandlers\LinearGravityTriggerEditor.cs" />
      <Compile Include="Assets\TestingTools\Scripts\Editor\CollisionHandlers\MarbleCollisionHandlerEditor.cs" />
      <Compile Include="Assets\TestingTools\Scripts\Editor\EditorIcon.cs" />
+     <Compile Include="Assets\TestingTools\Scripts\Editor\WorldGen\EnvironmentCanvasEditor.cs" />
      <Compile Include="Assets\TestingTools\Scripts\Editor\StandardComponents\StandardComponentsWindow.cs" />
      <Compile Include="Assets\TestingTools\Scripts\Editor\Motivators\PhysicsRotatorEditor.cs" />
      <Compile Include="Assets\TestingTools\Scripts\Editor\EditorIconConstants.cs" />
@@ -61,8 +63,6 @@
      <Compile Include="Assets\TestingTools\Scripts\Editor\StandardComponents\StandardComponentTagManager.cs" />
      <Compile Include="Assets\TestingTools\Scripts\Editor\Toolbars\AlignmentToolbar.cs" />
      <Compile Include="Assets\TestingTools\Scripts\Editor\CollisionHandlers\RadialGravityTriggerEditor.cs" />
-     <Compile Include="Assets\TestingTools\Scripts\Editor\WorldGen\EnvironmentCanvasEditor.cs" />
-     <Compile Include="Assets\TestingTools\Scripts\Editor\WorldGen\CutVolumeEditor.cs" />
      <None Include="Assets\UMod\Resources\Editor\Data\Readme.txt" />
      <Reference Include="UnityEngine">
      <HintPath>C:\Program Files\Unity\Hub\Editor\2022.1.0b8\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
