@@ -1,9 +1,2 @@
-# Getting Started #
-
-## Overview ##
-
-
-## Package Components ##
-
-
-## Shared Library ##
+# Documentation
+https://github.com/TribalInstincts/MarblePhysicsModderPack/wiki
