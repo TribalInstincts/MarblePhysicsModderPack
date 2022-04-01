@@ -8,23 +8,15 @@ namespace MarblePhysics.Modding
         [SerializeField]
         private Transform teleportTarget = default;
 
-        [SerializeField]
-        private PositionModifier positionModifier = default;
-
         public Transform TeleportTarget => teleportTarget;
 
-        [SerializeField]
-        private bool keepVelocity = false;
-
-        [SerializeField]
-        private bool clearTrail = false;
-
-        private bool hasPositionModifier = false;
+        private bool hasTeleportHandler = false;
+        private ITeleportHandler teleportHandler; 
 
         protected override void Awake()
         {
             base.Awake();
-            hasPositionModifier = positionModifier != null;
+            hasTeleportHandler = teleportTarget.TryGetComponent(out teleportHandler);
         }
 
         protected override void OnMarbleTriggerEnter(Marble marble)
@@ -49,7 +41,15 @@ namespace MarblePhysics.Modding
 
         private void Teleport(Marble marble)
         {
-            marble.Teleport((hasPositionModifier ? positionModifier.ModifyPosition(teleportTarget.position) : teleportTarget.position), keepVelocity, true, clearTrail);
+            if (hasTeleportHandler)
+            {
+                teleportHandler.HandleTeleport(marble);
+            }
+            else
+            {
+                marble.Teleport(teleportTarget.position, false, true, false);
+            }
+            
         }
     }
 }
