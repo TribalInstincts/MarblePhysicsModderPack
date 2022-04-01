@@ -56,7 +56,7 @@ namespace MarblePhysics.Modding
                         }
                     }
 
-                    nextPosition = transform.TransformPoint(new Vector2(0, maxY));
+                    nextPosition = transform.TransformPoint(new Vector2(0, maxY)) - (collider2D.transform.up * .5f);
 
                     foreach (Marble marble in marbles)
                     {
