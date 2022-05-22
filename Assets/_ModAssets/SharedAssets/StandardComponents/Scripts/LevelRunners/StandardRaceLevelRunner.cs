@@ -15,10 +15,11 @@ namespace MarblePhysics.Modding
 
         [SerializeField]
         private SpawnZone spawnZone = default;
+
+        [SerializeField] 
+        private LeaderProvider leaderProvider = default;
         
         private bool isGameOver = false;
-
-        private Marble[] winners;
         
         public override IEnumerator PrepareGame()
         {
@@ -51,12 +52,11 @@ namespace MarblePhysics.Modding
         public override IEnumerable<PlayerResult> GetPlayerResults()
         {
             int placement = 0;
-            return winners.Select(player => new PlayerResult {Player = player.PlayerReference, Placement = placement++});
+            return leaderProvider.GetLeaders(true, true).Select(leader => new PlayerResult { Player = leader.PlayerReference, Placement = placement++});
         }
 
-        public void EndGame(SeatSet winningSeatSet)
+        public void EndGame()
         {
-            this.winners = winningSeatSet.Marbles;
             isGameOver = true;
         }
     }

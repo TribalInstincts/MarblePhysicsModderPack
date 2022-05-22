@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using MarblePhysics.Modding.Shared.Level;
 using MarblePhysics.Modding.Shared.Player;
 using UnityEngine;
 using UnityEngine.Events;
@@ -20,28 +21,31 @@ namespace MarblePhysics.Modding
         [SerializeField]
         private MarbleFilter filter = default;
         
-        private bool isSetFull = false;
+        public int FilledCount { get; private set; }
+        public int SeatCount => seats.Length;
+        public float FillRatio => (float)FilledCount / SeatCount;
+        public bool IsFull => FilledCount == SeatCount;
+        public float LastTakeTime { get; private set; }
 
-        public Marble[] Marbles => seats.Select(s => s.Marble).ToArray();
+        public Marble[] Marbles => seats.Select(s => s.Marble).Where(m => m != null).ToArray();
 
         public virtual bool TryTakeMarble(Marble marble)
         {
-            if (!isSetFull && (filter == null || filter.PassesFilter(marble)))
+            if (!IsFull && (filter == null || filter.PassesFilter(marble)))
             {
-                for (int index = 0; index < seats.Length; index++)
+                foreach (Seat seat in seats)
                 {
-                    Seat seat = seats[index];
                     if (seat.TryTakeMarble(marble))
                     {
-                        if (index == seats.Length - 1)
+                        FilledCount++;
+                        LastTakeTime = LevelRunner.Instance.CurrentRunTime;
+                        if (IsFull)
                         {
-                            isSetFull = true;
                             SeatSetFilled?.Invoke(this);
                         }
                         return true;
                     }
                 }
-                
             }
 
             return false;

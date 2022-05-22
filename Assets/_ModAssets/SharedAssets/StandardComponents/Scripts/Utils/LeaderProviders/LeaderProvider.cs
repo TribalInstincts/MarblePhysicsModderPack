@@ -27,7 +27,9 @@ namespace MarblePhysics.Modding
             }
         }
 
-        private List<Leader> currentLeaders;
+        private List<Leader> allLatestLeaders;
+        private List<Leader> uniqueLatestLeaders;
+        private HashSet<PlayerReference> currentPlayerReferences;
 
         protected virtual void LateUpdate()
         {
@@ -35,24 +37,42 @@ namespace MarblePhysics.Modding
         }
 
         /// <summary>
-        /// Returns an ordered enumerable of playerReferences and an associated active marble, if it has one. This list is not guaranteed to consist of distinct player references.
+        /// Returns an ordered enumerable of playerReferences and an associated active marble, if it has one.
+        /// If singleEntryPerPlayer is enabled, only the best placement is returned per player entry
         /// </summary>
-        public virtual IEnumerable<Leader> GetLeaders(bool forceRecalculation = false)
+        public virtual IEnumerable<Leader> GetLeaders(bool singleEntryPerPlayer = false, bool forceRecalculation = false)
         {
-            if (currentLeaders == null || forceRecalculation)
+            if (allLatestLeaders == null || forceRecalculation)
             {
                 RecalculateLeaders();
             }
 
-            return currentLeaders;
+            return singleEntryPerPlayer ? uniqueLatestLeaders : allLatestLeaders;
         }
 
         private void RecalculateLeaders()
         {
-            currentLeaders ??= new List<Leader>();
-            currentLeaders.Clear();
+            CacheLeaders(CalculateLeaders());
+        }
 
-            currentLeaders.AddRange(CalculateLeaders());
+        protected void CacheLeaders(IEnumerable<Leader> leaders)
+        {
+            allLatestLeaders ??= new List<Leader>();
+            uniqueLatestLeaders ??= new List<Leader>();
+            currentPlayerReferences ??= new HashSet<PlayerReference>();
+            
+            currentPlayerReferences.Clear();
+            allLatestLeaders.Clear();
+            uniqueLatestLeaders.Clear();
+
+            foreach (Leader leader in leaders)
+            {
+                allLatestLeaders.Add(leader);
+                if (currentPlayerReferences.Add(leader.PlayerReference))
+                {
+                    uniqueLatestLeaders.Add(leader);
+                }
+            }
         }
 
         protected abstract IEnumerable<Leader> CalculateLeaders();
